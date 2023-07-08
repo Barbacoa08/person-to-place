@@ -1,23 +1,20 @@
 <script lang="ts">
-  import { page } from "$app/stores";
   import { Layout } from "@barbajoe/svelte-lib";
-  import type { HeaderLink, LogoData } from "@barbajoe/svelte-lib/dist/types";
+  import type { LogoData } from "@barbajoe/svelte-lib/dist/types";
 
-  $: links = [
-    { href: "/page1", text: "Page 1", active: $page.url.pathname === "/page1" },
-    { href: "/page2", text: "Page 2", active: $page.url.pathname === "/page2" },
-    { href: "/page3", text: "Page 3", active: $page.url.pathname === "/page3" },
-  ] as HeaderLink[];
+  import { SiteSearch } from "$lib";
 
   const logo: LogoData = {
     href: "/",
     src: "/favicon.ico",
     alt: "Logo",
     ariaLabel: "go to landing page",
-    text: "barbajoe's svelte library",
+    text: "Person to Timezone",
   };
 </script>
 
-<Layout {links} {logo}>
+<Layout {logo}>
+  <SiteSearch slot="header" />
+
   <slot />
 </Layout>
