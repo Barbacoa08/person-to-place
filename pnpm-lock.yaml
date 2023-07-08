@@ -10,6 +10,12 @@ dependencies:
     version: 1.4.0
 
 devDependencies:
+  '@barbajoe/css-lib':
+    specifier: ^0.1.2
+    version: 0.1.2
+  '@barbajoe/svelte-lib':
+    specifier: 0.2.1
+    version: 0.2.1(@barbajoe/css-lib@0.1.2)(svelte@4.0.5)
   '@sveltejs/adapter-auto':
     specifier: 2.1.0
     version: 2.1.0(@sveltejs/kit@1.22.1)
@@ -75,6 +81,20 @@ packages:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.18
+    dev: true
+
+  /@barbajoe/css-lib@0.1.2:
+    resolution: {integrity: sha512-P+B3BeQhFyax4WAgv2SQfqR2xIfkPPBDla180RNHxK5fKtyeBcdOANhmSDExdelin9od2uQ/+0Dzagz2h/RPDg==}
+    dev: true
+
+  /@barbajoe/svelte-lib@0.2.1(@barbajoe/css-lib@0.1.2)(svelte@4.0.5):
+    resolution: {integrity: sha512-SuxbNQyZG/f9QzIHjCDAMWSgoO0IFMS+91YAvlBKe3RgJQ+fBwq8fwl2LsQxnrulEJgHaOHM9u9Co/qtJ5KM2Q==}
+    peerDependencies:
+      '@barbajoe/css-lib': '*'
+      svelte: ^4
+    dependencies:
+      '@barbajoe/css-lib': 0.1.2
+      svelte: 4.0.5
     dev: true
 
   /@esbuild/android-arm64@0.18.11:

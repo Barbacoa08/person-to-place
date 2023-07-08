@@ -2,6 +2,17 @@
   "name": "timezone-to-person",
   "version": "0.0.1",
   "type": "module",
+  "keywords": [
+    "svelte",
+    "sveltekit",
+    "tauri",
+    "typescript",
+    "timezone",
+    "tracker",
+    "macos",
+    "windows",
+    "linux"
+  ],
   "scripts": {
     "all": "pnpm i && pnpm clean && pnpm format && pnpm lint && pnpm build && pnpm check && pnpm test",
     "github": "pnpm i && pnpm build && pnpm lint && pnpm check && pnpm test",
@@ -17,6 +28,8 @@
     "format": "prettier --plugin-search-dir . --write ."
   },
   "devDependencies": {
+    "@barbajoe/css-lib": "0.1.2",
+    "@barbajoe/svelte-lib": "0.2.1",
     "@sveltejs/adapter-auto": "2.1.0",
     "@sveltejs/adapter-static": "2.0.2",
     "@sveltejs/kit": "1.22.1",
