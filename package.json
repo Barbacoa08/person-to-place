@@ -3,12 +3,14 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
+    "all": "pnpm i && pnpm clean && pnpm format && pnpm lint && pnpm build && pnpm check && pnpm test",
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "lint": "prettier --plugin-search-dir . --check . && eslint .",
     "format": "prettier --plugin-search-dir . --write ."
   },
