@@ -1,5 +1,5 @@
 {
-  "name": "person-to-place",
+  "name": "timezone-to-person",
   "version": "0.0.1",
   "type": "module",
   "scripts": {

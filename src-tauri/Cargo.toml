@@ -1,10 +1,10 @@
 [package]
 name = "app"
 version = "0.1.0"
-description = "Person to Place"
+description = "Timezone to Person"
 authors = ["barbajoe"]
 license = "MIT"
-repository = "https://github.com/Barbacoa08/person-to-place"
+repository = "https://github.com/Barbacoa08/timezone-to-person"
 default-run = "app"
 edition = "2021"
 rust-version = "1.60"

@@ -1,4 +1,4 @@
-# Person to Place, aka, the PP!
+# Timezone to Person, aka, the TP!
 
 Are you sick to death of trying to remember who lives where and what time it is there? Me too.
 
