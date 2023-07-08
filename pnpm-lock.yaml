@@ -11,7 +11,7 @@ dependencies:
 
 devDependencies:
   '@barbajoe/css-lib':
-    specifier: ^0.1.2
+    specifier: 0.1.2
     version: 0.1.2
   '@barbajoe/svelte-lib':
     specifier: 0.2.1
@@ -55,6 +55,9 @@ devDependencies:
   svelte-check:
     specifier: 3.4.5
     version: 3.4.5(postcss@8.4.25)(svelte@4.0.5)
+  svelte-search:
+    specifier: 2.0.1
+    version: 2.0.1
   tslib:
     specifier: 2.6.0
     version: 2.6.0
@@ -2124,6 +2127,10 @@ packages:
       strip-indent: 3.0.0
       svelte: 4.0.5
       typescript: 5.1.6
+    dev: true
+
+  /svelte-search@2.0.1:
+    resolution: {integrity: sha512-JBoObru/BUk86EmuRtYBa99xnH1RB8jqDuYYJHH0PUzN9BINo1+1GZataC/m5368BG3kZRb3wZI5ztjoi1WWXg==}
     dev: true
 
   /svelte@4.0.5:
