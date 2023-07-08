@@ -1,4 +1,6 @@
 <script lang="ts">
+  import "./global.css";
+
   import { Layout } from "@barbajoe/svelte-lib";
   import type { LogoData } from "@barbajoe/svelte-lib/dist/types";
 

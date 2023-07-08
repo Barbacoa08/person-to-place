@@ -119,7 +119,7 @@
 </button>
 
 <Modal bind:showModal>
-  <h2 slot="header">Search Person or Timezone</h2>
+  <h2 slot="header">Global Search</h2>
 
   <Search autofocus label="Search Person or Timezone" bind:value />
 
