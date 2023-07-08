@@ -7,7 +7,7 @@
     "distDir": "../build"
   },
   "package": {
-    "productName": "person-to-place",
+    "productName": "Person to Place",
     "version": "../package.json",
   },
   "tauri": {
