@@ -7,9 +7,14 @@
   let currenttime = new Date();
   const interval = setInterval(() => (currenttime = new Date()), 60_000);
   onDestroy(() => clearInterval(interval));
+
+  $: search = "";
+  $: filteredtabledata = mocktabledata.filter((row) =>
+    row.name.toLowerCase().includes(search.toLowerCase())
+  );
 </script>
 
-<TableHeader {currenttime} />
+<TableHeader {currenttime} bind:search />
 
 <table>
   <thead>
@@ -21,9 +26,9 @@
   </thead>
 
   <tbody>
-    {#each mocktabledata as row}
+    {#each filteredtabledata as row}
       <tr>
-        <td>{row.firstName} {row.surname}</td>
+        <td>{row.name}</td>
 
         <td>
           {currenttime.toLocaleString("en-US", {

@@ -3,7 +3,7 @@
 
   export let currenttime: Date;
 
-  let value = "";
+  export let search: string = "";
 
   // TODO: get locale from user/browser/system
   $: currenttime24hr = currenttime.toLocaleString("en-US", {
@@ -14,7 +14,7 @@
 </script>
 
 <div class="container">
-  <Search autofocus label="Search Person or Timezone" bind:value />
+  <Search autofocus label="Search Person or Timezone" bind:value={search} />
 
   <div class="current-time">
     <div>Your current system time:</div>
