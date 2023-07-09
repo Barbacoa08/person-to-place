@@ -1,10 +1,8 @@
 <script lang="ts">
-  import "./global.css";
-
   import { Layout } from "@barbajoe/svelte-lib";
   import type { LogoData } from "@barbajoe/svelte-lib/dist/types";
 
-  import { SiteSearch } from "$lib";
+  import { UserPreferences } from "$lib";
 
   const logo: LogoData = {
     href: "/",
@@ -16,7 +14,7 @@
 </script>
 
 <Layout {logo}>
-  <SiteSearch slot="header" />
+  <UserPreferences slot="header" />
 
   <slot />
 </Layout>
