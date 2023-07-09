@@ -1,9 +1,11 @@
 <script lang="ts">
   import Search from "svelte-search";
 
+  export let currenttime: Date;
+
   let value = "";
 
-  export let currenttime: Date;
+  // TODO: get locale from user/browser/system
   $: currenttime24hr = currenttime.toLocaleString("en-US", {
     hour: "numeric",
     minute: "numeric",
