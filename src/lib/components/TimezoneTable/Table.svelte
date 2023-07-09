@@ -35,6 +35,8 @@
             timeZone: row.timezone,
             hour: "numeric",
             minute: "numeric",
+            day: "2-digit",
+            month: "long",
             hour12: false,
           })}
         </td>
