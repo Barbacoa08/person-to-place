@@ -33,6 +33,7 @@
             hour12: false,
           })}
         </td>
+
         <td class="limitcolumnwidth">{row.notes}</td>
       </tr>
     {/each}
@@ -55,5 +56,12 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  /* show tooltip with full content on hover of this td */
+  .limitcolumnwidth:hover {
+    overflow: visible;
+    white-space: normal;
+    background-color: var(--color-bg-accent);
   }
 </style>
