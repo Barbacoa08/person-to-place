@@ -15,7 +15,6 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Timezone</th>
       <th>Currently</th>
       <th>Notes</th>
     </tr>
@@ -25,7 +24,7 @@
     {#each mocktabledata as row}
       <tr>
         <td>{row.firstName} {row.surname}</td>
-        <td>{row.timezone}</td>
+
         <td>
           {currenttime.toLocaleString("en-US", {
             timeZone: row.timezone,
