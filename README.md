@@ -1,4 +1,4 @@
-# Timezone to Person, aka, the TP!
+# Person to Timezone
 
 Are you sick to death of trying to remember who lives where and what time it is there? Me too.
 
