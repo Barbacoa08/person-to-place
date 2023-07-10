@@ -2,10 +2,11 @@
   import SettingsIcon from "./SettingsIcon.svelte";
 
   // TODO: add Modal
-  let showModal = false;
+  // let showModal = false;
 </script>
 
-<button aria-label="User Preferences" on:click={() => (showModal = true)}>
+<!-- <button aria-label="User Preferences" on:click={() => (showModal = true)}> -->
+<button aria-label="User Preferences">
   <SettingsIcon width="1rem" height="1rem" />
 </button>
 

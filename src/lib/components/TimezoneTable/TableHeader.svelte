@@ -5,7 +5,7 @@
 
   export let currenttime: Date;
 
-  export let search: string = "";
+  export let search = "";
 
   // TODO: get locale from user/browser/system
   $: currenttime24hr = currenttime.toLocaleString("en-US", {
