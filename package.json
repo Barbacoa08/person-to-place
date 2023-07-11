@@ -16,7 +16,7 @@
   "scripts": {
     "all": "pnpm i && pnpm clean && pnpm format && pnpm lint && pnpm build && pnpm check && pnpm test",
     "github": "pnpm i && pnpm build && pnpm lint && pnpm check && pnpm test",
-    "dev": "vite dev --open",
+    "dev": "vite dev",
     "build": "vite build",
     "clean": "rm -rf ./dist",
     "preview": "vite preview",
