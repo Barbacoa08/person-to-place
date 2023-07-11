@@ -29,8 +29,8 @@
 
 <style>
   .container {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
     margin-bottom: 1rem;
   }
@@ -51,7 +51,7 @@
   }
 
   :global(.table-search [data-svelte-search] input) {
-    width: 100%;
+    width: calc(100% - 5rem);
     font-size: 1rem;
     padding: 0.5rem;
     margin: 0.5rem 0;
