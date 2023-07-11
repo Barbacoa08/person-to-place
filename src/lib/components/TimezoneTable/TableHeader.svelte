@@ -3,12 +3,12 @@
 
   import SearchIcon from "./SearchIcon.svelte";
 
-  export let currenttime: Date;
+  export let now: Date;
 
   export let search = "";
 
   // TODO: get locale from user/browser/system
-  $: currenttime24hr = currenttime.toLocaleString("en-US", {
+  $: currenttime = now.toLocaleString("en-US", {
     hour: "numeric",
     minute: "numeric",
     hour12: false,
@@ -23,14 +23,14 @@
 
   <div class="current-time">
     <div>Your current system time:</div>
-    <div>{currenttime24hr}</div>
+    <div>{currenttime}</div>
   </div>
 </div>
 
 <style>
   .container {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
     margin-bottom: 1rem;
   }

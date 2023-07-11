@@ -2,19 +2,25 @@
   import { onDestroy } from "svelte";
 
   import TableHeader from "./TableHeader.svelte";
-  import { mocktabledata } from "./mockdata";
+  import InsertEntry from "./InsertEntry.svelte";
+  import type { TableData } from "$types/Store";
+
+  onDestroy(() => clearInterval(interval));
 
   let currenttime = new Date();
   const interval = setInterval(() => (currenttime = new Date()), 60_000);
-  onDestroy(() => clearInterval(interval));
 
   $: search = "";
-  $: filteredtabledata = mocktabledata.filter((row) =>
+  $: filteredtabledata = tabledata.filter((row) =>
     row.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  let tabledata: TableData[] = [];
 </script>
 
-<TableHeader {currenttime} bind:search />
+<InsertEntry bind:tabledata />
+
+<TableHeader now={currenttime} bind:search />
 
 <table>
   <thead>
