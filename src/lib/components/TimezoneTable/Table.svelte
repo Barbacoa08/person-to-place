@@ -20,7 +20,7 @@
 
 <InsertEntry bind:tabledata />
 
-<TableHeader {currenttime} bind:search />
+<TableHeader now={currenttime} bind:search />
 
 <table>
   <thead>
