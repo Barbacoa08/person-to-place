@@ -51,7 +51,7 @@
   }
 
   :global(.table-search [data-svelte-search] input) {
-    width: calc(100% - 5rem);
+    width: 100%;
     font-size: 1rem;
     padding: 0.5rem;
     margin: 0.5rem 0;
