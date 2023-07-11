@@ -13,3 +13,8 @@ fn main() {
 fn greet(name: &str) -> String {
     format!("Hello, {}!", name)
 }
+
+// TODO: get system locale: https://crates.io/crates/sys-locale
+// use sys_locale::get_locale;
+// let locale = get_locale().unwrap_or_else(|| String::from("en-US"));
+// println!("The current locale is {}", locale);
