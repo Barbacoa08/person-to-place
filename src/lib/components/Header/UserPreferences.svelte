@@ -1,17 +1,38 @@
 <script lang="ts">
+  import { Modal } from "$lib";
   import SettingsIcon from "./SettingsIcon.svelte";
 
-  // TODO: add Modal
-  // let showModal = false;
+  let showModal = false;
 </script>
 
-<!-- <button aria-label="User Preferences" on:click={() => (showModal = true)}> -->
-<button aria-label="User Preferences">
+<button
+  class="preferences"
+  aria-label="User Preferences"
+  on:click={() => (showModal = true)}
+>
   <SettingsIcon width="1rem" height="1rem" />
 </button>
 
+<Modal bind:showModal>
+  <svelte:fragment slot="dialog-header-text">User Preferences</svelte:fragment>
+
+  <div>
+    <p>TODO: add preferences</p>
+  </div>
+
+  <svelte:fragment slot="dialog-footer">
+    <button class="modal-button" on:click={() => (showModal = false)}>
+      cancel
+    </button>
+
+    <button class="modal-button" on:click={() => (showModal = false)}>
+      save
+    </button>
+  </svelte:fragment>
+</Modal>
+
 <style>
-  button {
+  button.preferences {
     color: var(--color-link-text);
     background: none;
     cursor: pointer;

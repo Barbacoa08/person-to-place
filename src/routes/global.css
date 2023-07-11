@@ -1,0 +1,15 @@
+button.modal-button {
+  font-size: var(--font-size-base);
+  background-color: rgba(0, 0, 0, 0.3);
+  color: var(--color-link-text);
+  border: 1px solid var(--border-color-gray);
+  border-radius: 0.2em;
+  margin-top: 1rem;
+  padding: 0.2em 0.5em;
+  cursor: pointer;
+}
+button.modal-button:focus,
+button.modal-button:hover {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-link-text);
+}
