@@ -59,7 +59,7 @@
     <form on:change={() => (saved = false)}>
       {#if preferences}
         <label>
-          <span>Locale</span>
+          <div>Locale</div>
           <input type="text" bind:value={preferences.locale} />
         </label>
 
@@ -114,7 +114,7 @@
     flex-direction: column;
     gap: 0.5rem;
   }
-  form label {
+  form label:has(input[type="checkbox"]) {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -124,13 +124,18 @@
     height: 1rem;
   }
   form label input[type="text"] {
-    width: 100%;
+    width: 10rem;
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--border-color-gray);
+    border-radius: 0.25rem;
   }
 
   .form-container {
     height: -webkit-fill-available;
     display: grid;
     grid-template-rows: 1fr auto;
-    gap: 100%; /* feels hacky, but it works, and I'm annoyed at how long this took me */
+    gap: 7rem; /* HACK: I'm annoyed at how long this took me */
   }
 </style>
