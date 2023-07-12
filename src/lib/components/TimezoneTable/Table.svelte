@@ -16,6 +16,9 @@
   );
 
   let tabledata: TableData[] = [];
+
+  // TODO: replace all "en-US" with stored locale preference
+  // and all other preferences
 </script>
 
 <InsertEntry bind:tabledata />
