@@ -1,5 +1,5 @@
 /* TODO: put all of this in the css-lib */
-button.modal-button {
+button.modal-action-button {
   font-size: var(--font-size-base);
   background-color: rgba(0, 0, 0, 0.3);
   color: var(--color-link-text);
@@ -9,19 +9,8 @@ button.modal-button {
   padding: 0.2em 0.5em;
   cursor: pointer;
 }
-button.modal-button:focus,
-button.modal-button:hover {
+button.modal-action-button:focus,
+button.modal-action-button:hover {
   outline: none;
   box-shadow: 0 0 0 2px var(--color-link-text);
-}
-
-:root {
-  --color-success-text: #3a5a41;
-  --color-error-text: #7b262f;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-success-text: #12b939;
-    --color-error-text: #b81e2a;
-  }
 }

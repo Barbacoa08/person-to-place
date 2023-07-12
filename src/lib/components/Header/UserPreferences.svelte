@@ -8,16 +8,25 @@
   import type { Preferences } from "$types/Store";
   import SettingsIcon from "./SettingsIcon.svelte";
   import { StoreConsts } from "$utils";
+  import SaveStatus from "./SaveStatus.svelte";
 
   onMount(async () => {
-    preferences =
-      (await store.get(StoreConsts.preferences)) ||
-      ({
-        locale: await invoke("current_locale"),
+    try {
+      const result = await store.get<Preferences>(StoreConsts.preferences);
+      if (result) {
+        preferences = result;
+      } else {
+        throw new Error("Preferences not found in store");
+      }
+    } catch (error) {
+      console.error("Failed to load preferences from store", error);
+      preferences = {
+        locale: await invoke("current_locale").catch(() => "en-US"),
         showNotes: true,
         showTimezone: true,
         use24HourTime: true,
-      } as Preferences);
+      } as Preferences;
+    }
   });
 
   let showModal = false;
@@ -46,40 +55,42 @@
 <Modal bind:showModal>
   <svelte:fragment slot="dialog-header-text">User Preferences</svelte:fragment>
 
-  <form on:change={() => (saved = false)}>
-    {#if preferences}
-      <label>
-        <span>Locale</span>
-        <input type="text" bind:value={preferences.locale} />
-      </label>
+  <div class="form-container">
+    <form on:change={() => (saved = false)}>
+      {#if preferences}
+        <label>
+          <div>Locale</div>
+          <input type="text" bind:value={preferences.locale} />
+        </label>
 
-      <label>
-        <input type="checkbox" bind:checked={preferences.use24HourTime} />
-        <span>Use 24 hour time</span>
-      </label>
+        <label>
+          <input type="checkbox" bind:checked={preferences.use24HourTime} />
+          <span>Use 24 hour time</span>
+        </label>
 
-      <label>
-        <input type="checkbox" bind:checked={preferences.showTimezone} />
-        <span>Show timezone</span>
-      </label>
+        <label>
+          <input type="checkbox" bind:checked={preferences.showTimezone} />
+          <span>Show timezone</span>
+        </label>
 
-      <label>
-        <input type="checkbox" bind:checked={preferences.showNotes} />
-        <span>Show notes</span>
-      </label>
-    {/if}
-  </form>
+        <label>
+          <input type="checkbox" bind:checked={preferences.showNotes} />
+          <span>Show notes</span>
+        </label>
+      {/if}
+    </form>
 
-  <div class="form-status" class:success={saved} class:error={!saved}>
-    {saved ? "Data Saved" : "Unsaved Changes"}
+    <SaveStatus {saved} />
   </div>
 
   <svelte:fragment slot="dialog-footer">
-    <button class="modal-button" on:click={() => (showModal = false)}>
+    <button class="modal-action-button" on:click={() => (showModal = false)}>
       close
     </button>
 
-    <button class="modal-button" on:click={savePreferences}> save </button>
+    <button class="modal-action-button" on:click={savePreferences}>
+      save
+    </button>
   </svelte:fragment>
 </Modal>
 
@@ -103,7 +114,7 @@
     flex-direction: column;
     gap: 0.5rem;
   }
-  form label {
+  form label:has(input[type="checkbox"]) {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -113,17 +124,18 @@
     height: 1rem;
   }
   form label input[type="text"] {
-    width: 100%;
+    width: 10rem;
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--border-color-gray);
+    border-radius: 0.25rem;
   }
 
-  .form-status {
-    font-size: 2rem;
-    margin-top: 0.5rem;
-  }
-  .form-status.success {
-    color: var(--color-success-text);
-  }
-  .form-status.error {
-    color: var(--color-error-text);
+  .form-container {
+    height: -webkit-fill-available;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 7rem; /* HACK: I'm annoyed at how long this took me */
   }
 </style>
