@@ -8,6 +8,7 @@
   import type { Preferences } from "$types/Store";
   import SettingsIcon from "./SettingsIcon.svelte";
   import { StoreConsts } from "$utils";
+  import SaveStatus from "./SaveStatus.svelte";
 
   onMount(async () => {
     try {
@@ -78,9 +79,7 @@
     {/if}
   </form>
 
-  <div class="form-status" class:success={saved} class:error={!saved}>
-    {saved ? "Data Saved" : "Unsaved Changes"}
-  </div>
+  <SaveStatus {saved} />
 
   <svelte:fragment slot="dialog-footer">
     <button class="modal-action-button" on:click={() => (showModal = false)}>
@@ -122,16 +121,5 @@
   }
   form label input[type="text"] {
     width: 100%;
-  }
-
-  .form-status {
-    font-size: 2rem;
-    margin-top: 0.5rem;
-  }
-  .form-status.success {
-    color: var(--color-success-text);
-  }
-  .form-status.error {
-    color: var(--color-error-text);
   }
 </style>
