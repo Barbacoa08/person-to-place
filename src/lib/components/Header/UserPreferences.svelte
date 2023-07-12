@@ -10,14 +10,22 @@
   import { StoreConsts } from "$utils";
 
   onMount(async () => {
-    preferences =
-      (await store.get(StoreConsts.preferences)) ||
-      ({
-        locale: await invoke("current_locale"),
+    try {
+      const result = await store.get<Preferences>(StoreConsts.preferences);
+      if (result) {
+        preferences = result;
+      } else {
+        throw new Error("Preferences not found in store");
+      }
+    } catch (error) {
+      console.error("Failed to load preferences from store", error);
+      preferences = {
+        locale: await invoke("current_locale").catch(() => "en-US"),
         showNotes: true,
         showTimezone: true,
         use24HourTime: true,
-      } as Preferences);
+      } as Preferences;
+    }
   });
 
   let showModal = false;
