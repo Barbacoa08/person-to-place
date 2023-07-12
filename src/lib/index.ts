@@ -1,3 +1,7 @@
+import Modal from "./components/Modal.svelte";
+
+export { Modal };
+
 import TimezoneTable from "./components/TimezoneTable/Table.svelte";
 export { TimezoneTable };
 
