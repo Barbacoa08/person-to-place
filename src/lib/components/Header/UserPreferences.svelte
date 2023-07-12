@@ -75,11 +75,11 @@
   </div>
 
   <svelte:fragment slot="dialog-footer">
-    <button class="modal-button" on:click={() => (showModal = false)}>
+    <button class="modal-action-button" on:click={() => (showModal = false)}>
       close
     </button>
 
-    <button class="modal-button" on:click={savePreferences}> save </button>
+    <button class="modal-action-button" on:click={savePreferences}> save </button>
   </svelte:fragment>
 </Modal>
 

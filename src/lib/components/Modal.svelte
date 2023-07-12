@@ -27,7 +27,7 @@
 
     <div class="dialog-footer">
       <slot name="dialog-footer">
-        <button class="modal-close-button" on:click={() => dialog.close()}>
+        <button class="modal-action-button" on:click={() => dialog.close()}>
           close
         </button>
       </slot>
