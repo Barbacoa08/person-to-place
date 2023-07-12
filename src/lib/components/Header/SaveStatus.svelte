@@ -12,7 +12,6 @@
 
 <style>
   div {
-    margin-top: 0.5rem;
     font-size: var(--font-size-lg);
     border-radius: 4px;
     padding: 10px;

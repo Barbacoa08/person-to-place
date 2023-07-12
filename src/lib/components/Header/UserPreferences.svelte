@@ -55,38 +55,42 @@
 <Modal bind:showModal>
   <svelte:fragment slot="dialog-header-text">User Preferences</svelte:fragment>
 
-  <form on:change={() => (saved = false)}>
-    {#if preferences}
-      <label>
-        <span>Locale</span>
-        <input type="text" bind:value={preferences.locale} />
-      </label>
+  <div class="form-container">
+    <form on:change={() => (saved = false)}>
+      {#if preferences}
+        <label>
+          <span>Locale</span>
+          <input type="text" bind:value={preferences.locale} />
+        </label>
 
-      <label>
-        <input type="checkbox" bind:checked={preferences.use24HourTime} />
-        <span>Use 24 hour time</span>
-      </label>
+        <label>
+          <input type="checkbox" bind:checked={preferences.use24HourTime} />
+          <span>Use 24 hour time</span>
+        </label>
 
-      <label>
-        <input type="checkbox" bind:checked={preferences.showTimezone} />
-        <span>Show timezone</span>
-      </label>
+        <label>
+          <input type="checkbox" bind:checked={preferences.showTimezone} />
+          <span>Show timezone</span>
+        </label>
 
-      <label>
-        <input type="checkbox" bind:checked={preferences.showNotes} />
-        <span>Show notes</span>
-      </label>
-    {/if}
-  </form>
+        <label>
+          <input type="checkbox" bind:checked={preferences.showNotes} />
+          <span>Show notes</span>
+        </label>
+      {/if}
+    </form>
 
-  <SaveStatus {saved} />
+    <SaveStatus {saved} />
+  </div>
 
   <svelte:fragment slot="dialog-footer">
     <button class="modal-action-button" on:click={() => (showModal = false)}>
       close
     </button>
 
-    <button class="modal-action-button" on:click={savePreferences}> save </button>
+    <button class="modal-action-button" on:click={savePreferences}>
+      save
+    </button>
   </svelte:fragment>
 </Modal>
 
@@ -121,5 +125,12 @@
   }
   form label input[type="text"] {
     width: 100%;
+  }
+
+  .form-container {
+    height: -webkit-fill-available;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 100%; /* feels hacky, but it works, and I'm annoyed at how long this took me */
   }
 </style>
