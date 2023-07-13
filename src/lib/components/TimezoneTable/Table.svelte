@@ -37,7 +37,12 @@
     <tr>
       <th>Name</th>
       <th>Currently</th>
-      <th>Notes</th>
+      {#if preferences.showTimezone}
+        <th>Timezone</th>
+      {/if}
+      {#if preferences.showNotes}
+        <th>Notes</th>
+      {/if}
     </tr>
   </thead>
 
@@ -53,11 +58,17 @@
             minute: "numeric",
             day: "2-digit",
             month: "long",
-            hour12: preferences.use24HourTime,
+            hour12: !preferences.use24HourTime,
           })}
         </td>
 
-        <td class="limitcolumnwidth">{row.notes}</td>
+        {#if preferences.showTimezone}
+          <td>{row.timezone}</td>
+        {/if}
+
+        {#if preferences.showNotes}
+          <td class="limitcolumnwidth">{row.notes}</td>
+        {/if}
       </tr>
     {/each}
   </tbody>
