@@ -1,11 +1,16 @@
 <script lang="ts">
   import { onDestroy } from "svelte";
 
+  import type { Preferences, TableData } from "$types/Store";
+  import { PreferencesStore } from "$utils/stores";
+
   import TableHeader from "./TableHeader.svelte";
   import InsertEntry from "./InsertEntry.svelte";
-  import type { TableData } from "$types/Store";
 
-  onDestroy(() => clearInterval(interval));
+  onDestroy(() => {
+    clearInterval(interval);
+    unsubscribe();
+  });
 
   let currenttime = new Date();
   const interval = setInterval(() => (currenttime = new Date()), 60_000);
@@ -15,10 +20,12 @@
     row.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  // bound variables
   let tabledata: TableData[] = [];
-
-  // TODO: replace all "en-US" with stored locale preference
-  // and all other preferences
+  let preferences: Preferences;
+  const unsubscribe = PreferencesStore.subscribe(
+    (value) => (preferences = value)
+  );
 </script>
 
 <InsertEntry bind:tabledata />
@@ -30,7 +37,12 @@
     <tr>
       <th>Name</th>
       <th>Currently</th>
-      <th>Notes</th>
+      {#if preferences.showTimezone}
+        <th>Timezone</th>
+      {/if}
+      {#if preferences.showNotes}
+        <th>Notes</th>
+      {/if}
     </tr>
   </thead>
 
@@ -40,17 +52,23 @@
         <td>{row.name}</td>
 
         <td>
-          {currenttime.toLocaleString("en-US", {
+          {currenttime.toLocaleString(preferences.locale, {
             timeZone: row.timezone,
             hour: "numeric",
             minute: "numeric",
             day: "2-digit",
             month: "long",
-            hour12: false,
+            hour12: !preferences.use24HourTime,
           })}
         </td>
 
-        <td class="limitcolumnwidth">{row.notes}</td>
+        {#if preferences.showTimezone}
+          <td>{row.timezone}</td>
+        {/if}
+
+        {#if preferences.showNotes}
+          <td class="limitcolumnwidth">{row.notes}</td>
+        {/if}
       </tr>
     {/each}
   </tbody>

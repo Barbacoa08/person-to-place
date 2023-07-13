@@ -1,20 +1,35 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/tauri";
+  import { onMount } from "svelte";
   import { Store } from "tauri-plugin-store-api";
 
-  import { onMount } from "svelte";
-
   import { Modal } from "$lib";
+  import { PreferencesStore, StoreConsts } from "$utils";
   import type { Preferences } from "$types/Store";
-  import SettingsIcon from "./SettingsIcon.svelte";
-  import { StoreConsts } from "$utils";
-  import SaveStatus from "./SaveStatus.svelte";
 
-  onMount(async () => {
+  import SaveStatus from "./SaveStatus.svelte";
+  import SettingsIcon from "./SettingsIcon.svelte";
+
+  onMount(() => getPreferences());
+
+  let showModal = false;
+
+  let preferences: Preferences;
+  const store = new Store(StoreConsts.path);
+  const savePreferences = async () => {
+    // optimistic update
+    PreferencesStore.set(preferences);
+    saved = true;
+
+    await store.set(StoreConsts.preferences, preferences);
+    store.save();
+  };
+  const getPreferences = async () => {
     try {
       const result = await store.get<Preferences>(StoreConsts.preferences);
       if (result) {
         preferences = result;
+        PreferencesStore.set(preferences);
       } else {
         throw new Error("Preferences not found in store");
       }
@@ -26,18 +41,8 @@
         showTimezone: true,
         use24HourTime: true,
       } as Preferences;
+      PreferencesStore.set(preferences);
     }
-  });
-
-  let showModal = false;
-
-  let preferences: Preferences;
-
-  const store = new Store(StoreConsts.path);
-  const savePreferences = async () => {
-    saved = true; // optimistic update
-    await store.set(StoreConsts.preferences, preferences);
-    store.save();
   };
 
   // TODO: consider checking saved vs form data before setting saved to false
@@ -47,7 +52,11 @@
 <button
   class="preferences"
   aria-label="User Preferences"
-  on:click={() => (showModal = true)}
+  on:click={() => {
+    showModal = true;
+    saved = true;
+    getPreferences();
+  }}
 >
   <SettingsIcon width="1rem" height="1rem" />
 </button>
@@ -136,6 +145,5 @@
     height: -webkit-fill-available;
     display: grid;
     grid-template-rows: 1fr auto;
-    gap: 7rem; /* HACK: I'm annoyed at how long this took me */
   }
 </style>

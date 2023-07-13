@@ -1,17 +1,25 @@
 <script lang="ts">
   import Search from "svelte-search";
 
+  import type { Preferences } from "$types/Store";
+  import { PreferencesStore } from "$utils";
+
   import SearchIcon from "./SearchIcon.svelte";
+  import { onDestroy } from "svelte";
+
+  onDestroy(() => unsubscribe());
 
   export let now: Date;
-
   export let search = "";
 
-  // TODO: get locale from user/browser/system
-  $: currenttime = now.toLocaleString("en-US", {
+  let preferences: Preferences;
+  const unsubscribe = PreferencesStore.subscribe(
+    (value) => (preferences = value)
+  );
+  $: currenttime = now.toLocaleString(preferences.locale, {
     hour: "numeric",
     minute: "numeric",
-    hour12: false,
+    hour12: !preferences.use24HourTime,
   });
 </script>
 
