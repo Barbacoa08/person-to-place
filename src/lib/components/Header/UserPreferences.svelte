@@ -138,6 +138,5 @@
     height: -webkit-fill-available;
     display: grid;
     grid-template-rows: 1fr auto;
-    gap: 7rem; /* HACK: I'm annoyed at how long this took me */
   }
 </style>
