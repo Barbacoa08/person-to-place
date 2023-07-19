@@ -14,3 +14,16 @@ button.modal-action-button:hover {
   outline: none;
   box-shadow: 0 0 0 2px var(--color-link-text);
 }
+
+header .header button.modal-button {
+  color: var(--color-link-text);
+  background: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+
+  border: 1px solid var(--color-link-text);
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.5rem;
+}

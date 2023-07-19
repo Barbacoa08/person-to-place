@@ -37,7 +37,7 @@
 </script>
 
 <button
-  class="insert"
+  class="modal-button"
   aria-label="insert enry"
   on:click={() => (showModal = true)}
 >
@@ -79,16 +79,10 @@
 </Modal>
 
 <style>
-  button.insert {
-    color: var(--color-link-text);
-    background: none;
-    cursor: pointer;
-
+  form {
+    margin-top: 1rem;
     display: flex;
-    align-items: center;
-
-    border: 1px solid var(--color-link-text);
-    padding: 0.3rem 0.5rem;
-    border-radius: 0.5rem;
+    flex-direction: column;
+    gap: 1rem;
   }
 </style>

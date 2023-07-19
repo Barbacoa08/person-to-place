@@ -50,7 +50,7 @@
 </script>
 
 <button
-  class="preferences"
+  class="modal-button"
   aria-label="User Preferences"
   on:click={() => {
     showModal = true;
@@ -104,19 +104,6 @@
 </Modal>
 
 <style>
-  button.preferences {
-    color: var(--color-link-text);
-    background: none;
-    cursor: pointer;
-
-    display: flex;
-    align-items: center;
-
-    border: 1px solid var(--color-link-text);
-    padding: 0.3rem 0.5rem;
-    border-radius: 0.5rem;
-  }
-
   form {
     margin-top: 1rem;
     display: flex;
