@@ -55,7 +55,7 @@
     <div>
       <label for="timezone">Timezone</label>
       <input id="timezone" type="text" bind:value={timezone} />
-      <div style="font-size: small;">
+      <div class="helper-text">
         TODO: allow user to enter timezone or place and select from valid
         options
       </div>

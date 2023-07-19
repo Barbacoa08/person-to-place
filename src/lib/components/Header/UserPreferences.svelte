@@ -104,33 +104,7 @@
 </Modal>
 
 <style>
-  form {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  form label:has(input[type="checkbox"]) {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  form label input[type="checkbox"] {
-    width: 1rem;
-    height: 1rem;
-  }
   form label input[type="text"] {
     width: 10rem;
-    font-size: 1rem;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-    border: 1px solid var(--border-color-gray);
-    border-radius: 0.25rem;
-  }
-
-  .form-container {
-    height: -webkit-fill-available;
-    display: grid;
-    grid-template-rows: 1fr auto;
   }
 </style>
