@@ -18,7 +18,7 @@
   let notes = "";
 
   const store = new Store(StoreConsts.path);
-  const set = async (name: string, timezone: string, notes = "") => {
+  const insert = async (name: string, timezone: string, notes = "") => {
     const data: TableData = {
       id: guid(),
       name: name.trim(),
@@ -47,33 +47,35 @@
 <Modal bind:showModal>
   <svelte:fragment slot="dialog-header-text">Insert Entry</svelte:fragment>
 
-  <div>
-    <label for="name">Name</label>
-    <input id="name" type="text" bind:value={name} />
-  </div>
-  <div>
-    <label for="timezone">Timezone</label>
-    <input id="timezone" type="text" bind:value={timezone} />
-  </div>
-  <div>
-    <label for="notes">Notes</label>
-    <textarea id="notes" bind:value={notes} />
-  </div>
-
-  <div>
-    <button on:click={() => set(name, timezone, notes)}>add</button>
-  </div>
+  <form>
+    <div>
+      <label for="name">Name</label>
+      <input id="name" type="text" bind:value={name} />
+    </div>
+    <div>
+      <label for="timezone">Timezone</label>
+      <input id="timezone" type="text" bind:value={timezone} />
+      <div style="font-size: small;">
+        TODO: allow user to enter timezone or place and select from valid
+        options
+      </div>
+    </div>
+    <div>
+      <label for="notes">Notes</label>
+      <textarea id="notes" bind:value={notes} />
+    </div>
+  </form>
 
   <svelte:fragment slot="dialog-footer">
     <button class="modal-action-button" on:click={() => (showModal = false)}>
-      close
+      cancel
     </button>
 
     <button
       class="modal-action-button"
-      on:click={() => set(name, timezone, notes)}
+      on:click={() => insert(name, timezone, notes)}
     >
-      save
+      insert
     </button>
   </svelte:fragment>
 </Modal>
