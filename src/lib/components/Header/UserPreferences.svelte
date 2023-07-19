@@ -70,6 +70,7 @@
         <label>
           <div>Locale</div>
           <input type="text" bind:value={preferences.locale} />
+          <div class="helper-text">TODO: make searchable dropdown</div>
         </label>
 
         <label>
