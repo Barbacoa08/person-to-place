@@ -5,16 +5,19 @@
 
   import { guid, StoreConsts } from "$utils";
   import type { TableData } from "$types/Store";
+  import { Modal } from "$lib";
+  import InsertIcon from "./InsertIcon.svelte";
 
   onMount(() => get());
 
-  const store = new Store(StoreConsts.path);
+  export let tabledata: TableData[] = [];
 
+  let showModal = false;
   let name = "";
   let timezone = "";
   let notes = "";
-  export let tabledata: TableData[] = [];
 
+  const store = new Store(StoreConsts.path);
   const set = async (name: string, timezone: string, notes = "") => {
     const data: TableData = {
       id: guid(),
@@ -31,14 +34,19 @@
   const get = async () => {
     tabledata = (await store.get(StoreConsts.table)) || [];
   };
-  const reset = async () => {
-    await store.reset();
-    store.save();
-    get();
-  };
 </script>
 
-<section>
+<button
+  class="insert"
+  aria-label="insert enry"
+  on:click={() => (showModal = true)}
+>
+  <InsertIcon width="1rem" height="1rem" />
+</button>
+
+<Modal bind:showModal>
+  <svelte:fragment slot="dialog-header-text">Insert Entry</svelte:fragment>
+
   <div>
     <label for="name">Name</label>
     <input id="name" type="text" bind:value={name} />
@@ -56,7 +64,31 @@
     <button on:click={() => set(name, timezone, notes)}>add</button>
   </div>
 
-  <div>
-    <span><b>HARD</b> reset of DB:</span><button on:click={reset}>reset</button>
-  </div>
-</section>
+  <svelte:fragment slot="dialog-footer">
+    <button class="modal-action-button" on:click={() => (showModal = false)}>
+      close
+    </button>
+
+    <button
+      class="modal-action-button"
+      on:click={() => set(name, timezone, notes)}
+    >
+      save
+    </button>
+  </svelte:fragment>
+</Modal>
+
+<style>
+  button.insert {
+    color: var(--color-link-text);
+    background: none;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+
+    border: 1px solid var(--color-link-text);
+    padding: 0.3rem 0.5rem;
+    border-radius: 0.5rem;
+  }
+</style>

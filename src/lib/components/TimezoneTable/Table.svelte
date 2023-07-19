@@ -5,7 +5,6 @@
   import { PreferencesStore } from "$utils/stores";
 
   import TableHeader from "./TableHeader.svelte";
-  import InsertEntry from "./InsertEntry.svelte";
 
   onDestroy(() => {
     clearInterval(interval);
@@ -27,8 +26,6 @@
     (value) => (preferences = value)
   );
 </script>
-
-<InsertEntry bind:tabledata />
 
 <TableHeader now={currenttime} bind:search />
 
