@@ -9,7 +9,9 @@
 
   import InsertIcon from "./InsertIcon.svelte";
 
-  onMount(() => get());
+  onMount(async () => {
+    tabledata = (await store.get(StoreConsts.table)) || [];
+  });
 
   let showModal = false;
   let tabledata: TableData[] = [];
@@ -31,10 +33,6 @@
     clearAndClose();
 
     // TODO: show success/error message
-  };
-
-  const get = async () => {
-    tabledata = (await store.get(StoreConsts.table)) || [];
   };
 
   const clearAndClose = () => {
