@@ -1,12 +1,18 @@
 <script lang="ts">
-  import { onDestroy } from "svelte";
+  import { Store } from "tauri-plugin-store-api";
 
-  import type { Preferences, TableData } from "$types/Store";
+  import { onDestroy, onMount } from "svelte";
+
+  import { StoreConsts } from "$utils";
   import { PreferencesStore } from "$utils/stores";
+  import type { Preferences, TableData } from "$types/Store";
 
   import TableHeader from "./TableHeader.svelte";
-  import InsertEntry from "./InsertEntry.svelte";
+  import DeleteIcon from "./DeleteIcon.svelte";
 
+  onMount(async () => {
+    tabledata = (await TauriStore.get<TableData[]>(StoreConsts.table)) || [];
+  });
   onDestroy(() => {
     clearInterval(interval);
     unsubscribe();
@@ -26,9 +32,20 @@
   const unsubscribe = PreferencesStore.subscribe(
     (value) => (preferences = value)
   );
-</script>
 
-<InsertEntry bind:tabledata />
+  let TauriStore = new Store(StoreConsts.path);
+  TauriStore.onChange(async (key, value: TableData[] | null) => {
+    if (key === StoreConsts.table && value) {
+      tabledata = value;
+    }
+  });
+
+  const deleteEntry = async (id: string) => {
+    tabledata = tabledata.filter((row) => row.id !== id);
+    await TauriStore.set(StoreConsts.table, tabledata);
+    await TauriStore.save();
+  };
+</script>
 
 <TableHeader now={currenttime} bind:search />
 
@@ -43,6 +60,7 @@
       {#if preferences.showNotes}
         <th>Notes</th>
       {/if}
+      <th />
     </tr>
   </thead>
 
@@ -69,6 +87,12 @@
         {#if preferences.showNotes}
           <td class="limitcolumnwidth">{row.notes}</td>
         {/if}
+
+        <td>
+          <button class="delete-button" on:click={() => deleteEntry(row.id)}>
+            <DeleteIcon height="1rem" width="1rem" />
+          </button>
+        </td>
       </tr>
     {/each}
   </tbody>
@@ -97,5 +121,18 @@
     overflow: visible;
     white-space: normal;
     background-color: var(--color-bg-accent);
+  }
+
+  .delete-button {
+    color: var(--color-link-text);
+    background: none;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+
+    border: 1px solid var(--color-link-text);
+    padding: 0.3rem 0.5rem;
+    border-radius: 0.5rem;
   }
 </style>

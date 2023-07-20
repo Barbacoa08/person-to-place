@@ -4,7 +4,7 @@
 
   import "./global.css";
 
-  import { UserPreferences } from "$lib";
+  import { InsertEntry, UserPreferences } from "$lib";
 
   const logo: LogoData = {
     href: "/",
@@ -16,7 +16,17 @@
 </script>
 
 <Layout {logo}>
-  <UserPreferences slot="header" />
+  <div class="header" slot="header">
+    <InsertEntry />
+    <UserPreferences />
+  </div>
 
   <slot />
 </Layout>
+
+<style>
+  .header {
+    display: flex;
+    gap: 1rem;
+  }
+</style>

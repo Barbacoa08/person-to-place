@@ -58,20 +58,19 @@
     font-weight: bold;
   }
 
+  :global(.table-search [data-svelte-search] label) {
+    margin: 0;
+    font-size: larger;
+  }
   :global(.table-search [data-svelte-search] input) {
-    width: 100%;
-    font-size: 1rem;
-    padding: 0.5rem;
-    margin: 0.5rem 0;
-    border: 1px solid var(--color-border);
-    border-radius: 0.25rem;
+    margin: 0;
   }
   :global(.table-search [data-svelte-search] input[type="search"]) {
     padding-left: 2rem;
   }
   :global(.table-search .table-search-input-icon) {
     position: absolute;
-    margin: 1.9rem 0 0 0.4rem;
+    margin: 3.4rem 0 0 0.4rem;
     color: var(--border-color-gray);
   }
 </style>

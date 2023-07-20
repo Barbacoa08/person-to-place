@@ -1,10 +1,12 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/tauri";
-  import { onMount } from "svelte";
   import { Store } from "tauri-plugin-store-api";
+
+  import { onMount } from "svelte";
 
   import { Modal } from "$lib";
   import { PreferencesStore, StoreConsts } from "$utils";
+
   import type { Preferences } from "$types/Store";
 
   import SaveStatus from "./SaveStatus.svelte";
@@ -50,7 +52,7 @@
 </script>
 
 <button
-  class="preferences"
+  class="modal-button"
   aria-label="User Preferences"
   on:click={() => {
     showModal = true;
@@ -70,6 +72,7 @@
         <label>
           <div>Locale</div>
           <input type="text" bind:value={preferences.locale} />
+          <div class="helper-text">TODO: make searchable dropdown</div>
         </label>
 
         <label>
@@ -104,46 +107,7 @@
 </Modal>
 
 <style>
-  button.preferences {
-    color: var(--color-link-text);
-    background: none;
-    cursor: pointer;
-
-    display: flex;
-    align-items: center;
-
-    border: 1px solid var(--color-link-text);
-    padding: 0.3rem 0.5rem;
-    border-radius: 0.5rem;
-  }
-
-  form {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  form label:has(input[type="checkbox"]) {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  form label input[type="checkbox"] {
-    width: 1rem;
-    height: 1rem;
-  }
   form label input[type="text"] {
     width: 10rem;
-    font-size: 1rem;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-    border: 1px solid var(--border-color-gray);
-    border-radius: 0.25rem;
-  }
-
-  .form-container {
-    height: -webkit-fill-available;
-    display: grid;
-    grid-template-rows: 1fr auto;
   }
 </style>

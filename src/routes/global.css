@@ -1,5 +1,5 @@
 /* TODO: put all of this in the css-lib */
-button.modal-action-button {
+dialog .dialog-footer button.modal-action-button {
   font-size: var(--font-size-base);
   background-color: rgba(0, 0, 0, 0.3);
   color: var(--color-link-text);
@@ -13,4 +13,57 @@ button.modal-action-button:focus,
 button.modal-action-button:hover {
   outline: none;
   box-shadow: 0 0 0 2px var(--color-link-text);
+}
+
+/* site header modal icon buttons */
+header .header button.modal-button {
+  color: var(--color-link-text);
+  background: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+
+  border: 1px solid var(--color-link-text);
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.5rem;
+}
+
+/* general form practices */
+form {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  & input[type="text"],
+  & input[type="password"],
+  & input[type="email"],
+  & input[type="number"],
+  & input[type="tel"],
+  & input[type="url"],
+  & input[type="search"],
+  & textarea {
+    font-size: var(--font-size-base);
+    border: 1px solid var(--border-color-gray);
+    border-radius: 0.2em;
+    padding: 0.5em;
+    margin-top: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+
+    + .helper-text {
+      font-size: small;
+    }
+  }
+
+  label:has(input[type="checkbox"]) {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  label input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+  }
 }
