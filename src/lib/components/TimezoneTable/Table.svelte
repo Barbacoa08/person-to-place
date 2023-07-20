@@ -1,11 +1,17 @@
 <script lang="ts">
-  import { onDestroy } from "svelte";
+  import { Store } from "tauri-plugin-store-api";
 
-  import type { Preferences, TableData } from "$types/Store";
+  import { onDestroy, onMount } from "svelte";
+
+  import { StoreConsts } from "$utils";
   import { PreferencesStore } from "$utils/stores";
+  import type { Preferences, TableData } from "$types/Store";
 
   import TableHeader from "./TableHeader.svelte";
 
+  onMount(async () => {
+    tabledata = (await TauriStore.get<TableData[]>(StoreConsts.table)) || [];
+  });
   onDestroy(() => {
     clearInterval(interval);
     unsubscribe();
@@ -25,6 +31,13 @@
   const unsubscribe = PreferencesStore.subscribe(
     (value) => (preferences = value)
   );
+
+  let TauriStore = new Store(StoreConsts.path);
+  TauriStore.onChange(async (key, value: TableData[] | null) => {
+    if (key === StoreConsts.table && value) {
+      tabledata = value;
+    }
+  });
 </script>
 
 <TableHeader now={currenttime} bind:search />

@@ -1,10 +1,12 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/tauri";
-  import { onMount } from "svelte";
   import { Store } from "tauri-plugin-store-api";
+
+  import { onMount } from "svelte";
 
   import { Modal } from "$lib";
   import { PreferencesStore, StoreConsts } from "$utils";
+
   import type { Preferences } from "$types/Store";
 
   import SaveStatus from "./SaveStatus.svelte";

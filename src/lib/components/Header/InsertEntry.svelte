@@ -4,15 +4,15 @@
   import { onMount } from "svelte";
 
   import { guid, StoreConsts } from "$utils";
-  import type { TableData } from "$types/Store";
   import { Modal } from "$lib";
+  import type { TableData } from "$types/Store";
+
   import InsertIcon from "./InsertIcon.svelte";
 
   onMount(() => get());
 
-  export let tabledata: TableData[] = [];
-
   let showModal = false;
+  let tabledata: TableData[] = [];
   let name = "";
   let timezone = "";
   let notes = "";
@@ -27,12 +27,21 @@
     };
     tabledata.push(data);
     await store.set(StoreConsts.table, tabledata);
-    store.save();
-    get();
+    await store.save();
+    clearAndClose();
+
+    // TODO: show success/error message
   };
 
   const get = async () => {
     tabledata = (await store.get(StoreConsts.table)) || [];
+  };
+
+  const clearAndClose = () => {
+    name = "";
+    timezone = "";
+    notes = "";
+    showModal = false;
   };
 </script>
 
@@ -67,7 +76,7 @@
   </form>
 
   <svelte:fragment slot="dialog-footer">
-    <button class="modal-action-button" on:click={() => (showModal = false)}>
+    <button class="modal-action-button" on:click={clearAndClose}>
       cancel
     </button>
 
