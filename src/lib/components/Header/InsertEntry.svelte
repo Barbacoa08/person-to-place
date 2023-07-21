@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { toast } from "@zerodevx/svelte-toast";
   import { Store } from "tauri-plugin-store-api";
 
   import { onMount } from "svelte";
@@ -30,9 +31,8 @@
     tabledata.push(data);
     await store.set(StoreConsts.table, tabledata);
     await store.save();
+    toast.push("Entry Inserted");
     clearAndClose();
-
-    // TODO: show success/error message
   };
 
   const clearAndClose = () => {

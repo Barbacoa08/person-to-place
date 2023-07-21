@@ -1,5 +1,6 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/tauri";
+  import { toast } from "@zerodevx/svelte-toast";
   import { Store } from "tauri-plugin-store-api";
 
   import { onMount } from "svelte";
@@ -9,7 +10,6 @@
 
   import type { Preferences } from "$types/Store";
 
-  import SaveStatus from "./SaveStatus.svelte";
   import SettingsIcon from "./SettingsIcon.svelte";
 
   onMount(() => getPreferences());
@@ -19,12 +19,10 @@
   let preferences: Preferences;
   const store = new Store(StoreConsts.path);
   const savePreferences = async () => {
-    // optimistic update
     PreferencesStore.set(preferences);
-    saved = true;
-
     await store.set(StoreConsts.preferences, preferences);
-    store.save();
+    await store.save();
+    toast.push("Preferences Saved");
   };
   const getPreferences = async () => {
     try {
@@ -46,9 +44,6 @@
       PreferencesStore.set(preferences);
     }
   };
-
-  // TODO: consider checking saved vs form data before setting saved to false
-  let saved = true;
 </script>
 
 <button
@@ -56,7 +51,6 @@
   aria-label="User Preferences"
   on:click={() => {
     showModal = true;
-    saved = true;
     getPreferences();
   }}
 >
@@ -67,7 +61,7 @@
   <svelte:fragment slot="dialog-header-text">User Preferences</svelte:fragment>
 
   <div class="form-container">
-    <form on:change={() => (saved = false)}>
+    <form on:change={savePreferences}>
       {#if preferences}
         <label>
           <div>Locale</div>
@@ -91,19 +85,7 @@
         </label>
       {/if}
     </form>
-
-    <SaveStatus {saved} />
   </div>
-
-  <svelte:fragment slot="dialog-footer">
-    <button class="modal-action-button" on:click={() => (showModal = false)}>
-      close
-    </button>
-
-    <button class="modal-action-button" on:click={savePreferences}>
-      save
-    </button>
-  </svelte:fragment>
 </Modal>
 
 <style>
