@@ -30,9 +30,8 @@
     tabledata.push(data);
     await store.set(StoreConsts.table, tabledata);
     await store.save();
-    clearAndClose();
-
     // TODO: show success/error message
+    clearAndClose();
   };
 
   const clearAndClose = () => {
