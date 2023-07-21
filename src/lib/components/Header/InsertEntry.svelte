@@ -62,10 +62,6 @@
 
   <form>
     <div>
-      <label for="name">Name</label>
-      <input id="name" type="text" bind:value={name} />
-    </div>
-    <div>
       <label for="timezone">Timezone</label>
       <select id="timezone" bind:value={timezone}>
         {#each rawTimeZones as tz}
@@ -79,6 +75,11 @@
         options
       </div>
     </div>
+    <div>
+      <label for="name">Name</label>
+      <input id="name" type="text" bind:value={name} />
+    </div>
+
     <div>
       <label for="notes">Notes</label>
       <textarea id="notes" bind:value={notes} />
