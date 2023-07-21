@@ -48,7 +48,8 @@ form {
   & input[type="tel"],
   & input[type="url"],
   & input[type="search"],
-  & textarea {
+  & textarea,
+  & select {
     font-size: var(--font-size-base);
     border: 1px solid var(--border-color-gray);
     border-radius: 0.2em;

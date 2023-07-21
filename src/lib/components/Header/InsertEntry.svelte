@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { rawTimeZones } from "@vvo/tzdb";
   import { toast } from "@zerodevx/svelte-toast";
   import { Store } from "tauri-plugin-store-api";
 
@@ -22,6 +23,11 @@
 
   const store = new Store(StoreConsts.path);
   const insert = async (name: string, timezone: string, notes = "") => {
+    if (!name.trim() || !timezone.trim()) {
+      toast.push("Name and Timezone are required");
+      return;
+    }
+
     const data: TableData = {
       id: guid(),
       name: name.trim(),
@@ -41,10 +47,6 @@
     notes = "";
     showModal = false;
   };
-
-  // let ary = Intl.supportedValuesOf("timeZone");
-  // may want to use a library instead: https://github.com/vvo/tzdb/
-  // either way, will need to put helper text and/or info icon to explain usage
 </script>
 
 <button
@@ -65,7 +67,13 @@
     </div>
     <div>
       <label for="timezone">Timezone</label>
-      <input id="timezone" type="text" bind:value={timezone} />
+      <select id="timezone" bind:value={timezone}>
+        {#each rawTimeZones as tz}
+          <option value={tz.name}>
+            {tz.abbreviation}: {tz.alternativeName} ({tz.name})
+          </option>
+        {/each}
+      </select>
       <div class="helper-text">
         TODO: allow user to enter timezone or place and select from valid
         options
