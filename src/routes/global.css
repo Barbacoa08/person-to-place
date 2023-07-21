@@ -1,3 +1,8 @@
+/* svelte-toast overrides */
+:root {
+  --toastBackground: var(--color-bg);
+}
+
 /* TODO: put all of this in the css-lib */
 dialog .dialog-footer button.modal-action-button {
   font-size: var(--font-size-base);

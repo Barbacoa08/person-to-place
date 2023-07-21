@@ -37,6 +37,9 @@ devDependencies:
   '@typescript-eslint/parser':
     specifier: 6.1.0
     version: 6.1.0(eslint@8.45.0)(typescript@5.1.6)
+  '@zerodevx/svelte-toast':
+    specifier: 0.9.5
+    version: 0.9.5(svelte@4.1.1)
   eslint:
     specifier: 8.45.0
     version: 8.45.0
@@ -822,6 +825,14 @@ packages:
       diff-sequences: 29.4.3
       loupe: 2.3.6
       pretty-format: 29.6.1
+    dev: true
+
+  /@zerodevx/svelte-toast@0.9.5(svelte@4.1.1):
+    resolution: {integrity: sha512-JLeB/oRdJfT+dz9A5bgd3Z7TuQnBQbeUtXrGIrNWMGqWbabpepBF2KxtWVhL2qtxpRqhae2f6NAOzH7xs4jUSw==}
+    peerDependencies:
+      svelte: ^3.57.0 || ^4.0.0
+    dependencies:
+      svelte: 4.1.1
     dev: true
 
   /acorn-jsx@5.3.2(acorn@8.10.0):

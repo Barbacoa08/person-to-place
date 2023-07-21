@@ -1,5 +1,6 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/tauri";
+  import { toast } from "@zerodevx/svelte-toast";
   import { Store } from "tauri-plugin-store-api";
 
   import { onMount } from "svelte";
@@ -21,7 +22,7 @@
     PreferencesStore.set(preferences);
     await store.set(StoreConsts.preferences, preferences);
     await store.save();
-    // TODO: show "saved" message
+    toast.push("Preferences Saved");
   };
   const getPreferences = async () => {
     try {
