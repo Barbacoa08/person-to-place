@@ -14,5 +14,6 @@ export interface Preferences {
   use24HourTime: boolean;
   showTimezone: boolean;
   showNotes: boolean;
+  showDate: boolean;
   locale: string;
 }

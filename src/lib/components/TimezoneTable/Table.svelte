@@ -74,8 +74,8 @@
             timeZone: row.timezone,
             hour: "numeric",
             minute: "numeric",
-            day: "2-digit",
-            month: "long",
+            day: preferences.showDate ? "2-digit" : undefined,
+            month: preferences.showDate ? "long" : undefined,
             hour12: !preferences.use24HourTime,
           })}
         </td>

@@ -14,7 +14,7 @@
 
   onMount(() => getPreferences());
 
-  let showModal = false;
+  let showModal = true; // NOTE: DO NOT CHECK IN
 
   let preferences: Preferences;
   const store = new Store(StoreConsts.path);
@@ -63,28 +63,45 @@
   <div class="form-container">
     <form on:change={savePreferences}>
       {#if preferences}
-        <label>
-          <div>Locale</div>
-          <input type="text" bind:value={preferences.locale} />
-          <div class="helper-text">TODO: make searchable dropdown</div>
-        </label>
+        <div class="grid">
+          <div>
+            <h3>General</h3>
 
-        <label>
-          <input type="checkbox" bind:checked={preferences.use24HourTime} />
-          <span>Use 24 hour time</span>
-        </label>
+            <label>
+              <div>Locale</div>
+              <input type="text" bind:value={preferences.locale} />
+              <div class="helper-text">TODO: make searchable dropdown</div>
+            </label>
 
-        <label>
-          <input type="checkbox" bind:checked={preferences.showTimezone} />
-          <span>Show timezone</span>
-        </label>
+            <label>
+              <input type="checkbox" bind:checked={preferences.showNotes} />
+              <span>Show notes</span>
+            </label>
+          </div>
 
-        <label>
-          <input type="checkbox" bind:checked={preferences.showNotes} />
-          <span>Show notes</span>
-        </label>
+          <div>
+            <h3>Time Display</h3>
 
-        <!-- TODO: add display options: timezone, current time, date -->
+            <label>
+              <input type="checkbox" bind:checked={preferences.use24HourTime} />
+              <span>Use 24 hour time</span>
+            </label>
+
+            <label>
+              <input type="checkbox" bind:checked={preferences.showDate} />
+              <span>Show Date</span>
+              <div class="helper-text">
+                This can be helpful in circumstances when entries are more than
+                a few hours apart
+              </div>
+            </label>
+
+            <label>
+              <input type="checkbox" bind:checked={preferences.showTimezone} />
+              <span>Show Timezone</span>
+            </label>
+          </div>
+        </div>
       {/if}
     </form>
   </div>
@@ -93,5 +110,17 @@
 <style>
   form label input[type="text"] {
     width: 10rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+
+    & div {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
 </style>
