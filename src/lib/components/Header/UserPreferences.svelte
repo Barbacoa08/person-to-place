@@ -83,6 +83,8 @@
           <input type="checkbox" bind:checked={preferences.showNotes} />
           <span>Show notes</span>
         </label>
+
+        <!-- TODO: add display options: timezone, current time, date -->
       {/if}
     </form>
   </div>
