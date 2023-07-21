@@ -41,6 +41,10 @@
     notes = "";
     showModal = false;
   };
+
+  // let ary = Intl.supportedValuesOf("timeZone");
+  // may want to use a library instead: https://github.com/vvo/tzdb/
+  // either way, will need to put helper text and/or info icon to explain usage
 </script>
 
 <button
