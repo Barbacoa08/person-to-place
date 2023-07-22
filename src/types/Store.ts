@@ -16,4 +16,5 @@ export interface Preferences {
   showNotes: boolean;
   showDate: boolean;
   locale: string;
+  localeDisplay: string;
 }

@@ -53,6 +53,7 @@
   "dependencies": {
     "@tauri-apps/api": "1.4.0",
     "@vvo/tzdb": "6.108.0",
+    "iso-639-1": "2.1.15",
     "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#v1"
   }
 }
