@@ -23,14 +23,14 @@
 
   $: search = "";
   $: filteredtabledata = tabledata.filter((row) =>
-    row.name.toLowerCase().includes(search.toLowerCase())
+    row.name.toLowerCase().includes(search.toLowerCase()),
   );
 
   // bound variables
   let tabledata: TableData[] = [];
   let preferences: Preferences;
   const unsubscribe = PreferencesStore.subscribe(
-    (value) => (preferences = value)
+    (value) => (preferences = value),
   );
 
   let TauriStore = new Store(StoreConsts.path);
