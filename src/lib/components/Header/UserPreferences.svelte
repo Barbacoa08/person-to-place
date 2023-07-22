@@ -11,6 +11,8 @@
   import type { Preferences } from "$types/Store";
 
   import SettingsIcon from "./SettingsIcon.svelte";
+  import Tooltip from "./Tooltip.svelte";
+  import InfoIcon from "./InfoIcon.svelte";
 
   onMount(() => getPreferences());
 
@@ -79,29 +81,34 @@
             <h3>General</h3>
 
             <label>
-              <div>Locale (language)</div>
+              <div class="input-label-with-tooltip">
+                Locale (language) <Tooltip>
+                  <InfoIcon />
+                  <svelte:fragment slot="tooltiptext">
+                    <div>
+                      Must be a valid Language, two digit ISO, or two digit ISO
+                      followed by two digit dialect.
+                    </div>
+                    <div>
+                      Examples: en-US, en-GB, English, French, zh, Chinese,
+                      中文, ab, Abkhaz, аҧсуа бызшәа
+                    </div>
+                  </svelte:fragment>
+                </Tooltip>
+              </div>
+
               <input
                 type="text"
                 bind:value={preferences.localeDisplay}
                 placeholder="en-US"
               />
+
               <div class="helper-text">
                 Must be a valid <a
                   href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes"
                 >
                   ISO name
                 </a>
-              </div>
-              <div class="helper-text">
-                TODO: add tooltip with examples of valid inputs.
-              </div>
-              <div class="helper-text">
-                Must be a valid Language, two digit ISO, or two digit ISO
-                followed by two digit dialect.
-              </div>
-              <div class="helper-text">
-                Examples: en-US, en-GB, English, French, zh, Chinese, 中文, ab,
-                Abkhaz, аҧсуа бызшәа
               </div>
             </label>
 
@@ -153,6 +160,11 @@
       display: flex;
       flex-direction: column;
       gap: 1rem;
+    }
+
+    & .input-label-with-tooltip {
+      display: flex;
+      gap: 0.5rem;
     }
   }
 </style>
