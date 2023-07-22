@@ -8,6 +8,7 @@ use sys_locale::get_locale;
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_store::Builder::default().build())
+        .plugin(tauri_plugin_window_state::Builder::default().build())
         .invoke_handler(tauri::generate_handler![current_locale])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
@@ -23,5 +24,3 @@ fn current_locale() -> Option<String> {
 // TODO: get user's timezone: https://crates.io/crates/timezone-enum
 
 // TODO: get users name from system: https://crates.io/crates/whoami
-
-// TODO: open in last used dimensions: https://crates.io/crates/last-window-position
