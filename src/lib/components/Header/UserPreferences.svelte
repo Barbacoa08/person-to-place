@@ -21,11 +21,27 @@
   let preferences: Preferences;
   const store = new Store(StoreConsts.path);
   const savePreferences = async () => {
-    const updatedLocale = ISO6391.getCode(preferences.localeDisplay);
+    const isoLocale = ISO6391.getCode(preferences.localeDisplay);
+    const intlLocale = (() => {
+      try {
+        return new Intl.Locale(preferences.localeDisplay);
+      } catch (error) {
+        return { language: null, region: null };
+      }
+    })();
 
-    if (ISO6391.validate(updatedLocale)) {
-      preferences.locale = updatedLocale;
-      preferences.localeDisplay = ISO6391.getName(updatedLocale);
+    if (ISO6391.validate(isoLocale)) {
+      // user entered a language, eg, English
+      preferences.locale = isoLocale;
+      preferences.localeDisplay = ISO6391.getName(isoLocale);
+    } else if (ISO6391.validate(preferences.localeDisplay)) {
+      // user entered a code, eg, en
+      preferences.locale = preferences.localeDisplay;
+    } else if (intlLocale.language && intlLocale.region) {
+      // user entered a locale, eg, en-US
+      const formatted = `${intlLocale.language}-${intlLocale.region}`;
+      preferences.locale = formatted;
+      preferences.localeDisplay = formatted;
     } else {
       toast.push("Invalid Locale");
       return;
