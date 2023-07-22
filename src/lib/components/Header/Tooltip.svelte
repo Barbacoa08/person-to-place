@@ -1,37 +1,40 @@
-<script lang="ts">
-  export let text = "";
-</script>
-
 <div class="tooltip">
   <slot />
-  <span class="tooltiptext">{text}</span>
+
+  <div class="tooltiptext">
+    <slot name="tooltiptext" />
+  </div>
 </div>
 
 <style>
   .tooltip {
     position: relative;
     display: inline-block;
-  }
 
-  .tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
+    & .tooltiptext {
+      visibility: hidden;
+      width: 25ch;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+      font-size: small;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
 
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
+      /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+      bottom: 110%;
+      left: 50%;
+      margin-left: -12ch;
 
-    /* Fade in/out animation */
-    opacity: 0;
-    transition: opacity 0.3s;
+      /* Fade in/out animation */
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
   }
 
   .tooltip:hover .tooltiptext,
