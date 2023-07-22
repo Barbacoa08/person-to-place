@@ -14,7 +14,7 @@
 
   onMount(() => getPreferences());
 
-  let showModal = true; // NOTE: DO NOT CHECK IN
+  let showModal = false;
 
   let preferences: Preferences;
   const store = new Store(StoreConsts.path);
