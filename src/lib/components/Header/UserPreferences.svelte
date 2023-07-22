@@ -11,6 +11,8 @@
   import type { Preferences } from "$types/Store";
 
   import SettingsIcon from "./SettingsIcon.svelte";
+  import Tooltip from "./Tooltip.svelte";
+  import InfoIcon from "./InfoIcon.svelte";
 
   onMount(() => getPreferences());
 
@@ -79,7 +81,9 @@
             <h3>General</h3>
 
             <label>
-              <div>Locale (language)</div>
+              <div>
+                Locale (language) <Tooltip text="ping"><InfoIcon /></Tooltip>
+              </div>
               <input
                 type="text"
                 bind:value={preferences.localeDisplay}
