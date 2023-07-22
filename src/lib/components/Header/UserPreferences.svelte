@@ -1,8 +1,8 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/tauri";
   import { toast } from "@zerodevx/svelte-toast";
+  import ISO6391 from "iso-639-1";
   import { Store } from "tauri-plugin-store-api";
-
   import { onMount } from "svelte";
 
   import { Modal } from "$lib";
@@ -19,6 +19,16 @@
   let preferences: Preferences;
   const store = new Store(StoreConsts.path);
   const savePreferences = async () => {
+    const updatedLocale = ISO6391.getCode(preferences.localeDisplay);
+
+    if (ISO6391.validate(updatedLocale)) {
+      preferences.locale = updatedLocale;
+      preferences.localeDisplay = ISO6391.getName(updatedLocale);
+    } else {
+      toast.push("Invalid Locale");
+      return;
+    }
+
     PreferencesStore.set(preferences);
     await store.set(StoreConsts.preferences, preferences);
     await store.save();
@@ -34,6 +44,7 @@
         throw new Error("Preferences not found in store");
       }
     } catch (error) {
+      toast.push("Failed to load preferences from store");
       console.error("Failed to load preferences from store", error);
       preferences = {
         locale: await invoke("current_locale").catch(() => "en-US"),
@@ -63,28 +74,66 @@
   <div class="form-container">
     <form on:change={savePreferences}>
       {#if preferences}
-        <label>
-          <div>Locale</div>
-          <input type="text" bind:value={preferences.locale} />
-          <div class="helper-text">TODO: make searchable dropdown</div>
-        </label>
+        <div class="grid">
+          <div>
+            <h3>General</h3>
 
-        <label>
-          <input type="checkbox" bind:checked={preferences.use24HourTime} />
-          <span>Use 24 hour time</span>
-        </label>
+            <label>
+              <div>Locale (language)</div>
+              <input
+                type="text"
+                bind:value={preferences.localeDisplay}
+                placeholder="en-US"
+              />
+              <div class="helper-text">
+                Must be a valid <a
+                  href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes"
+                >
+                  ISO name
+                </a>
+              </div>
+              <div class="helper-text">
+                TODO: add tooltip with examples of valid inputs.
+              </div>
+              <div class="helper-text">
+                Must be a valid Language, two digit ISO, or two digit ISO
+                followed by two digit dialect.
+              </div>
+              <div class="helper-text">
+                Examples: en-US, en-GB, English, French, zh, Chinese, 中文, ab,
+                Abkhaz, аҧсуа бызшәа
+              </div>
+            </label>
 
-        <label>
-          <input type="checkbox" bind:checked={preferences.showTimezone} />
-          <span>Show timezone</span>
-        </label>
+            <label>
+              <input type="checkbox" bind:checked={preferences.showNotes} />
+              <span>Show notes</span>
+            </label>
+          </div>
 
-        <label>
-          <input type="checkbox" bind:checked={preferences.showNotes} />
-          <span>Show notes</span>
-        </label>
+          <div>
+            <h3>Time Display</h3>
 
-        <!-- TODO: add display options: timezone, current time, date -->
+            <label>
+              <input type="checkbox" bind:checked={preferences.use24HourTime} />
+              <span>Use 24 hour time</span>
+            </label>
+
+            <label>
+              <input type="checkbox" bind:checked={preferences.showDate} />
+              <span>Show Date</span>
+              <div class="helper-text">
+                This can be helpful in circumstances when entries are more than
+                a few hours apart
+              </div>
+            </label>
+
+            <label>
+              <input type="checkbox" bind:checked={preferences.showTimezone} />
+              <span>Show Timezone</span>
+            </label>
+          </div>
+        </div>
       {/if}
     </form>
   </div>
@@ -93,5 +142,17 @@
 <style>
   form label input[type="text"] {
     width: 10rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+
+    & > div {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
 </style>

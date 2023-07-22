@@ -23,14 +23,14 @@
 
   $: search = "";
   $: filteredtabledata = tabledata.filter((row) =>
-    row.name.toLowerCase().includes(search.toLowerCase())
+    row.name.toLowerCase().includes(search.toLowerCase()),
   );
 
   // bound variables
   let tabledata: TableData[] = [];
   let preferences: Preferences;
   const unsubscribe = PreferencesStore.subscribe(
-    (value) => (preferences = value)
+    (value) => (preferences = value),
   );
 
   let TauriStore = new Store(StoreConsts.path);
@@ -74,8 +74,8 @@
             timeZone: row.timezone,
             hour: "numeric",
             minute: "numeric",
-            day: "2-digit",
-            month: "long",
+            day: preferences.showDate ? "2-digit" : undefined,
+            month: preferences.showDate ? "long" : undefined,
             hour12: !preferences.use24HourTime,
           })}
         </td>

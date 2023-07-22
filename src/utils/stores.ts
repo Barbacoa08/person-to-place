@@ -3,6 +3,8 @@ import { writable } from "svelte/store";
 
 export const PreferencesStore = writable({
   locale: "en-US",
+  localeDisplay: "English (United States)",
+  showDate: true,
   showNotes: true,
   showTimezone: true,
   use24HourTime: true,
