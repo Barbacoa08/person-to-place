@@ -35,7 +35,7 @@
       preferences.locale = isoLocale;
       preferences.localeDisplay = ISO6391.getName(isoLocale);
     } else if (ISO6391.validate(preferences.localeDisplay)) {
-      // user entered a language code, eg, en
+      // user entered a code, eg, en
       preferences.locale = preferences.localeDisplay;
     } else if (intlLocale.language && intlLocale.region) {
       // user entered a locale, eg, en-US
