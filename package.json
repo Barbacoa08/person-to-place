@@ -17,7 +17,7 @@
     "all": "pnpm i && pnpm clean && pnpm format && pnpm lint && pnpm build && pnpm check && pnpm test",
     "github": "pnpm i && pnpm build && pnpm lint && pnpm check && pnpm test",
     "dev": "vite dev",
-    "build": "vite build",
+    "build": "vite build --logLevel=error",
     "clean": "rm -rf ./dist",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
