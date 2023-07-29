@@ -3,23 +3,6 @@
   --toastBackground: var(--color-bg);
 }
 
-/* TODO: put all of this in the css-lib */
-dialog .dialog-footer button.modal-action-button {
-  font-size: var(--font-size-base);
-  background-color: rgba(0, 0, 0, 0.3);
-  color: var(--color-link-text);
-  border: 1px solid var(--border-color-gray);
-  border-radius: 0.2em;
-  margin-top: 1rem;
-  padding: 0.2em 0.5em;
-  cursor: pointer;
-}
-button.modal-action-button:focus,
-button.modal-action-button:hover {
-  outline: none;
-  box-shadow: 0 0 0 2px var(--color-link-text);
-}
-
 /* site header modal icon buttons */
 header .header button.modal-button {
   color: var(--color-link-text);
@@ -34,42 +17,4 @@ header .header button.modal-button {
   border-radius: 0.5rem;
 }
 
-/* general form practices */
-form {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
 
-  & input[type="text"],
-  & input[type="password"],
-  & input[type="email"],
-  & input[type="number"],
-  & input[type="tel"],
-  & input[type="url"],
-  & input[type="search"],
-  & textarea,
-  & select {
-    font-size: var(--font-size-base);
-    border: 1px solid var(--border-color-gray);
-    border-radius: 0.2em;
-    padding: 0.5em;
-    margin-top: 0.5rem;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  & .helper-text {
-    font-size: small;
-  }
-
-  & label:has(input[type="checkbox"]) {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    & input[type="checkbox"] {
-      margin-right: 0.5rem;
-      transform: scale(1.5);
-    }
-  }
-}
