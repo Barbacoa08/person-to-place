@@ -1,11 +1,11 @@
 <script lang="ts">
+  import { Modal } from "@barbajoe/svelte-lib";
   import { invoke } from "@tauri-apps/api/tauri";
   import { toast } from "@zerodevx/svelte-toast";
   import ISO6391 from "iso-639-1";
   import { Store } from "tauri-plugin-store-api";
   import { onMount } from "svelte";
 
-  import { Modal } from "$lib";
   import { PreferencesStore, StoreConsts } from "$utils";
 
   import type { Preferences } from "$types/Store";

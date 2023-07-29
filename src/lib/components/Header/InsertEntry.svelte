@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Modal } from "@barbajoe/svelte-lib";
   import { rawTimeZones } from "@vvo/tzdb";
   import { toast } from "@zerodevx/svelte-toast";
   import { Store } from "tauri-plugin-store-api";
@@ -6,7 +7,6 @@
   import { onMount } from "svelte";
 
   import { guid, StoreConsts } from "$utils";
-  import { Modal } from "$lib";
   import type { TableData } from "$types/Store";
 
   import InsertIcon from "./InsertIcon.svelte";
