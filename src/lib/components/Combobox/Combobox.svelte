@@ -73,7 +73,7 @@
     <button
       type="button"
       aria-label="clear"
-      class="clear"
+      class:hidden={value === ""}
       on:click={() => (value = "")}
     >
       <ClearInputIcon />
