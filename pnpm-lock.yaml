@@ -8,9 +8,6 @@ dependencies:
   '@tauri-apps/api':
     specifier: 1.4.0
     version: 1.4.0
-  '@vvo/tzdb':
-    specifier: 6.108.0
-    version: 6.108.0
   iso-639-1:
     specifier: 2.1.15
     version: 2.1.15
@@ -846,10 +843,6 @@ packages:
       loupe: 2.3.6
       pretty-format: 29.6.1
     dev: true
-
-  /@vvo/tzdb@6.108.0:
-    resolution: {integrity: sha512-/UI2yKYNlcPVsVajMNcLfcsZgD+TtmE9hsN+3JTrk8N4/Kwlr35SqMOZuSU7lwWG+PvWmWKs51f2SMM0JGWxww==}
-    dev: false
 
   /@zerodevx/svelte-toast@0.9.5(svelte@4.1.1):
     resolution: {integrity: sha512-JLeB/oRdJfT+dz9A5bgd3Z7TuQnBQbeUtXrGIrNWMGqWbabpepBF2KxtWVhL2qtxpRqhae2f6NAOzH7xs4jUSw==}

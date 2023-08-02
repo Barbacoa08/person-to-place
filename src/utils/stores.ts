@@ -7,5 +7,6 @@ export const PreferencesStore = writable({
   showDate: true,
   showNotes: true,
   showTimezone: true,
+  showPlace: true,
   use24HourTime: true,
 } as Preferences);

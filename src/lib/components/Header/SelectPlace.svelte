@@ -4,6 +4,7 @@
   import { Combobox } from "$lib";
 
   export let place = "";
+  export let timezone = "";
 
   const options = cityTimezones.cityMapping.map((city) => ({
     text: `${city.city_ascii}, ${city.province}`,
@@ -17,5 +18,6 @@
   name="place-combobox-selection"
   required
   {options}
-  bind:value={place}
+  bind:place
+  bind:timezone
 />

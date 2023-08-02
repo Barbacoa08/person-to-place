@@ -9,7 +9,8 @@
   export let label: string;
   export let options: { text: string; value: string }[] = [];
   export let placeholder: string | undefined = undefined;
-  export let value = "";
+  export let place = "";
+  export let timezone = "";
   export let required = false;
   const listboxId = `${id}-listbox`;
 
@@ -25,8 +26,8 @@
       })
       .map((o: any) => o.obj);
   };
-  $: items = filter(value); // TODO: improve UX
-  $: isExpanded = items.length > 0;
+  $: items = filter(place);
+  $: isExpanded = items.length > 1;
 
   const isValidTimezone = (timezone: string) => {
     if (!Intl || !Intl.DateTimeFormat().resolvedOptions().timeZone) {
@@ -47,20 +48,27 @@
 
 <div class="combobox">
   <div class="group">
+    <input type="hidden" value={timezone} />
     <input
       {id}
       {name}
       {required}
       {placeholder}
-      bind:value
+      bind:value={place}
       on:keydown={(event) => {
         if (["Tab", "Enter"].includes(event.key)) {
-          value = items[0]?.value || (isValidTimezone(value) ? value : "");
+          if (isValidTimezone(items[0].value)) {
+            timezone = items[0].value;
+            place = items[0].text;
+          } else {
+            timezone = "";
+            place = "";
+          }
         } else if (event.key === "Escape") {
           event.preventDefault();
           event.stopPropagation();
-          items = [];
-          value = isValidTimezone(value) ? value : "";
+          timezone = "";
+          place = "";
         }
       }}
       type="text"
@@ -73,8 +81,11 @@
     <button
       type="button"
       aria-label="clear"
-      class:hidden={value === ""}
-      on:click={() => (value = "")}
+      class:hidden={place === ""}
+      on:click={() => {
+        place = "";
+        timezone = "";
+      }}
     >
       <ClearInputIcon />
     </button>
@@ -90,15 +101,17 @@
       <li
         class="active"
         role="option"
-        aria-selected={value === item.value}
+        aria-selected={place === item.value}
         id={`listbox-item-${item.value}`}
         on:click={() => {
-          value = item.value;
+          timezone = item.value;
+          place = item.text;
         }}
         on:keydown={(event) => {
           // TODO: add a roving index
           if (event.key === "Enter") {
-            value = item.value;
+            timezone = item.value;
+            place = item.text;
           }
         }}
       >
@@ -147,6 +160,7 @@
       padding: 0.5rem;
 
       &:hover,
+      &:focus,
       &[aria-selected="true"] {
         background-color: var(--color-bg-accent);
       }

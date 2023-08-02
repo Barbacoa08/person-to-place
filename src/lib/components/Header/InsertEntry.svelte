@@ -1,6 +1,5 @@
 <script lang="ts">
   import { Modal } from "@barbajoe/svelte-lib";
-  import { rawTimeZones } from "@vvo/tzdb";
   import { toast } from "@zerodevx/svelte-toast";
   import { Store } from "tauri-plugin-store-api";
 
@@ -24,7 +23,7 @@
   let place = "";
 
   const store = new Store(StoreConsts.path);
-  const insert = async (name: string, timezone: string, notes = "") => {
+  const insert = async () => {
     if (!name.trim() || !timezone.trim()) {
       toast.push("Name and Timezone are required");
       return;
@@ -33,6 +32,7 @@
     const data: TableData = {
       id: guid(),
       name: name.trim(),
+      place: place.trim(),
       timezone: timezone.trim(),
       notes: notes.trim(),
     };
@@ -46,6 +46,7 @@
   const clearAndClose = () => {
     name = "";
     timezone = "";
+    place = "";
     notes = "";
     showModal = false;
   };
@@ -64,27 +65,12 @@
 
   <form>
     <div>
-      <SelectPlace bind:place />
-    </div>
-
-    <div>
-      <label for="timezone">Timezone</label>
-      <select id="timezone" bind:value={timezone}>
-        {#each rawTimeZones as tz}
-          <option value={tz.name}>
-            {tz.abbreviation}: {tz.alternativeName} ({tz.name})
-          </option>
-        {/each}
-      </select>
-      <div class="helper-text">
-        TODO: allow user to enter timezone or place and select from valid
-        options
-      </div>
-    </div>
-
-    <div>
       <label for="name">Name</label>
       <input id="name" type="text" bind:value={name} />
+    </div>
+
+    <div>
+      <SelectPlace bind:place bind:timezone />
     </div>
 
     <div>
@@ -98,12 +84,7 @@
       cancel
     </button>
 
-    <button
-      class="modal-action-button"
-      on:click={() => insert(name, timezone, notes)}
-    >
-      insert
-    </button>
+    <button class="modal-action-button" on:click={insert}> insert </button>
   </svelte:fragment>
 </Modal>
 
