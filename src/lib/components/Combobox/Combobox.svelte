@@ -1,7 +1,6 @@
 <script lang="ts">
   import fuzzysort from "fuzzysort";
 
-  import { onClickOutside } from "./helpers";
   import { guid } from "$utils";
 
   export let id: string = `barbajoe-combobox-${guid()}`;
@@ -12,12 +11,10 @@
   export let value = "";
   const listboxId = `${id}-listbox`;
 
-  let isExpanded = false; // TODO: control
+  let isExpanded = false;
   let activeOption: string | undefined = undefined; // TODO: active item id?
-  let activedescendant: string | undefined = undefined; // TODO: active item id?
-  $: console.log("value", value);
 
-  export let filter = (text: string) => {
+  const filter = (text: string) => {
     const sanitized = text.trim().toLowerCase();
 
     return fuzzysort
@@ -27,27 +24,53 @@
       })
       .map((o: any) => o.obj);
   };
-  $: items = filter(value); // TODO: fix
-  $: console.log("items", items);
+  $: items = filter(value); // TODO: improve UX
+
+  const isValidTimezone = (timezone: string) => {
+    if (!Intl || !Intl.DateTimeFormat().resolvedOptions().timeZone) {
+      throw new Error("Time zones are not available in this environment");
+    }
+
+    try {
+      Intl.DateTimeFormat(undefined, { timeZone: timezone });
+      return true;
+    } catch (ex) {
+      return false;
+    }
+  };
 </script>
 
 <label for={id}>{label}</label>
+<!-- TODO: add timezone as `value` and place in label? -->
 <input
   {id}
   {name}
   {placeholder}
   bind:value
   on:click={() => (isExpanded = true)}
-  on:blur={() => (isExpanded = false)}
+  on:blur={() => {
+    // BUG: need to be able to differentiate between clicking on an item and clicking outside the combobox
+    value = items[0]?.value || (isValidTimezone(value) ? value : "");
+    isExpanded = false;
+  }}
+  on:keydown={(event) => {
+    if (["Tab", "Enter"].includes(event.key)) {
+      value = items[0]?.value || (isValidTimezone(value) ? value : "");
+    } else if (event.key === "Escape") {
+      event.preventDefault();
+      event.stopPropagation();
+      isExpanded = false;
+      items = [];
+      value = isValidTimezone(value) ? value : "";
+    }
+  }}
   type="text"
   role="combobox"
   aria-autocomplete="list"
   aria-controls={listboxId}
   aria-expanded={isExpanded}
   data-active-option={activeOption}
-  aria-activedescendant={activedescendant}
 />
-<span aria-hidden="true" data-trigger="multiselect"></span>
 <ul id={listboxId} role="listbox" aria-label={label} class:hidden={!isExpanded}>
   {#each items as item}
     <li
