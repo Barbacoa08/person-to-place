@@ -10,6 +10,7 @@
   import type { TableData } from "$types/Store";
 
   import InsertIcon from "./InsertIcon.svelte";
+  import SelectPlace from "./SelectPlace.svelte";
 
   onMount(async () => {
     tabledata = (await store.get(StoreConsts.table)) || [];
@@ -20,6 +21,7 @@
   let name = "";
   let timezone = "";
   let notes = "";
+  let place = "";
 
   const store = new Store(StoreConsts.path);
   const insert = async (name: string, timezone: string, notes = "") => {
@@ -62,6 +64,10 @@
 
   <form>
     <div>
+      <SelectPlace bind:place />
+    </div>
+
+    <div>
       <label for="timezone">Timezone</label>
       <select id="timezone" bind:value={timezone}>
         {#each rawTimeZones as tz}
@@ -75,6 +81,7 @@
         options
       </div>
     </div>
+
     <div>
       <label for="name">Name</label>
       <input id="name" type="text" bind:value={name} />
