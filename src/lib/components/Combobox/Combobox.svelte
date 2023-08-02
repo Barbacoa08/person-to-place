@@ -2,6 +2,7 @@
   import fuzzysort from "fuzzysort";
 
   import { guid } from "$utils";
+  import ClearInputIcon from "./ClearInputIcon.svelte";
 
   export let id: string = `barbajoe-combobox-${guid()}`;
   export let name: string = id;
@@ -9,9 +10,9 @@
   export let options: { text: string; value: string }[] = [];
   export let placeholder: string | undefined = undefined;
   export let value = "";
+  export let required = false;
   const listboxId = `${id}-listbox`;
 
-  let isExpanded = false;
   let activeOption: string | undefined = undefined; // TODO: active item id?
 
   const filter = (text: string) => {
@@ -25,6 +26,7 @@
       .map((o: any) => o.obj);
   };
   $: items = filter(value); // TODO: improve UX
+  $: isExpanded = items.length > 0;
 
   const isValidTimezone = (timezone: string) => {
     if (!Intl || !Intl.DateTimeFormat().resolvedOptions().timeZone) {
@@ -42,61 +44,112 @@
 
 <label for={id}>{label}</label>
 <!-- TODO: add timezone as `value` and place in label? -->
-<input
-  {id}
-  {name}
-  {placeholder}
-  bind:value
-  on:click={() => (isExpanded = true)}
-  on:blur={() => {
-    // BUG: need to be able to differentiate between clicking on an item and clicking outside the combobox
-    value = items[0]?.value || (isValidTimezone(value) ? value : "");
-    isExpanded = false;
-  }}
-  on:keydown={(event) => {
-    if (["Tab", "Enter"].includes(event.key)) {
-      value = items[0]?.value || (isValidTimezone(value) ? value : "");
-    } else if (event.key === "Escape") {
-      event.preventDefault();
-      event.stopPropagation();
-      isExpanded = false;
-      items = [];
-      value = isValidTimezone(value) ? value : "";
-    }
-  }}
-  type="text"
-  role="combobox"
-  aria-autocomplete="list"
-  aria-controls={listboxId}
-  aria-expanded={isExpanded}
-  data-active-option={activeOption}
-/>
-<ul id={listboxId} role="listbox" aria-label={label} class:hidden={!isExpanded}>
-  {#each items as item}
-    <li
-      class="active"
-      role="option"
-      aria-selected={value === item.value}
-      id={`listbox-item-${item.value}`}
-      on:click={() => {
-        value = item.value;
-        isExpanded = false;
-      }}
+
+<div class="combobox">
+  <div class="group">
+    <input
+      {id}
+      {name}
+      {required}
+      {placeholder}
+      bind:value
       on:keydown={(event) => {
-        // TODO: add a roving index
-        if (event.key === "Enter") {
-          value = item.value;
-          isExpanded = false;
+        if (["Tab", "Enter"].includes(event.key)) {
+          value = items[0]?.value || (isValidTimezone(value) ? value : "");
+        } else if (event.key === "Escape") {
+          event.preventDefault();
+          event.stopPropagation();
+          items = [];
+          value = isValidTimezone(value) ? value : "";
         }
       }}
+      type="text"
+      role="combobox"
+      aria-autocomplete="list"
+      aria-controls={listboxId}
+      aria-expanded={isExpanded}
+      data-active-option={activeOption}
+    />
+    <button
+      type="button"
+      aria-label="clear"
+      class="clear"
+      on:click={() => (value = "")}
     >
-      {item.text}
-    </li>
-  {/each}
-</ul>
+      <ClearInputIcon />
+    </button>
+  </div>
+
+  <ul
+    id={listboxId}
+    role="listbox"
+    aria-label={label}
+    class:hidden={!isExpanded}
+  >
+    {#each items as item}
+      <li
+        class="active"
+        role="option"
+        aria-selected={value === item.value}
+        id={`listbox-item-${item.value}`}
+        on:click={() => {
+          value = item.value;
+        }}
+        on:keydown={(event) => {
+          // TODO: add a roving index
+          if (event.key === "Enter") {
+            value = item.value;
+          }
+        }}
+      >
+        {item.text}
+      </li>
+    {/each}
+  </ul>
+</div>
 
 <style>
   .hidden {
     display: none;
+  }
+
+  .combobox {
+    position: relative;
+  }
+
+  .combobox .group button {
+    position: absolute;
+    right: 0.5rem;
+    top: 1rem;
+    background-color: transparent;
+    border: none;
+
+    &:hover {
+      cursor: pointer;
+      color: var(--color-bg-accent);
+    }
+  }
+
+  ul[role="listbox"] {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 0.3rem;
+    list-style: none;
+    background-color: var(--color-bg);
+    box-sizing: border-box;
+    border: 1px solid var(--color-link-text);
+    border-radius: 0 0 0.2em 0.2em;
+    width: calc(100% - 0.6rem);
+    cursor: pointer;
+  }
+
+  ul[role="listbox"] li[role="option"] {
+    padding: 0.5rem;
+  }
+
+  [role="listbox"] [role="option"][aria-selected="true"],
+  [role="listbox"] [role="option"]:hover {
+    background-color: var(--color-bg-accent);
   }
 </style>
