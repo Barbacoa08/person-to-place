@@ -115,18 +115,18 @@
 
   .combobox {
     position: relative;
-  }
 
-  .combobox .group button {
-    position: absolute;
-    right: 0.5rem;
-    top: 1rem;
-    background-color: transparent;
-    border: none;
+    & .group button {
+      position: absolute;
+      right: 0.5rem;
+      top: 1rem;
+      background-color: transparent;
+      border: none;
 
-    &:hover {
-      cursor: pointer;
-      color: var(--color-bg-accent);
+      &:hover {
+        cursor: pointer;
+        color: var(--color-bg-accent);
+      }
     }
   }
 
@@ -142,14 +142,14 @@
     border-radius: 0 0 0.2em 0.2em;
     width: calc(100% - 0.6rem);
     cursor: pointer;
-  }
 
-  ul[role="listbox"] li[role="option"] {
-    padding: 0.5rem;
-  }
+    & li[role="option"] {
+      padding: 0.5rem;
 
-  [role="listbox"] [role="option"][aria-selected="true"],
-  [role="listbox"] [role="option"]:hover {
-    background-color: var(--color-bg-accent);
+      &:hover,
+      &[aria-selected="true"] {
+        background-color: var(--color-bg-accent);
+      }
+    }
   }
 </style>
