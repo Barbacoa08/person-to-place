@@ -23,9 +23,9 @@
     <slot />
 
     {#if sorted}
-      {#if sortDirection === "asc"}
+      {#if sortDirection === "desc"}
         <ChevronUp height="1rem" />
-      {:else if sortDirection === "desc"}
+      {:else if sortDirection === "asc"}
         <ChevronDown height="1rem" style="align-self: end" />
       {/if}
     {:else}
