@@ -9,6 +9,7 @@
 
   import TableHeader from "./TableHeader.svelte";
   import DeleteIcon from "./DeleteIcon.svelte";
+  import EditIcon from "./EditIcon.svelte";
 
   onMount(async () => {
     tabledata = (await TauriStore.get<TableData[]>(StoreConsts.table)) || [];
@@ -22,8 +23,11 @@
   const interval = setInterval(() => (currenttime = new Date()), 10_000);
 
   $: search = "";
-  $: filteredtabledata = tabledata.filter((row) =>
-    row.name.toLowerCase().includes(search.toLowerCase()),
+  $: filteredtabledata = tabledata.filter(
+    (row) =>
+      row.name.toLowerCase().includes(search.toLowerCase()) ||
+      row.place.toLowerCase().includes(search.toLowerCase()) ||
+      row.timezone.toLowerCase().includes(search.toLowerCase()),
   );
 
   // bound variables
@@ -40,7 +44,11 @@
     }
   });
 
+  const editEntry = async (id: string) => {
+    alert(`TODO: implement edit entry with id ${id}`);
+  };
   const deleteEntry = async (id: string) => {
+    // TODO: ask for confirmation
     tabledata = tabledata.filter((row) => row.id !== id);
     await TauriStore.set(StoreConsts.table, tabledata);
     await TauriStore.save();
@@ -95,8 +103,16 @@
           <td class="limitcolumnwidth">{row.notes}</td>
         {/if}
 
-        <td>
-          <button class="delete-button" on:click={() => deleteEntry(row.id)}>
+        <td class="action-button-cell">
+          <button
+            class="action-button"
+            on:click={() => editEntry(row.id)}
+            aria-label="edit entry"
+          >
+            <EditIcon height="1rem" width="1rem" />
+          </button>
+
+          <button class="action-button" on:click={() => deleteEntry(row.id)}>
             <DeleteIcon height="1rem" width="1rem" />
           </button>
         </td>
@@ -110,10 +126,17 @@
     border-collapse: collapse;
     width: 100%;
     margin-top: 1rem;
-  }
-  table td {
-    border: 1px solid #ddd;
-    padding: 8px;
+
+    & td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    & td.action-button-cell {
+      display: flex;
+      justify-content: space-evenly;
+      border: none;
+    }
   }
 
   .limitcolumnwidth {
@@ -130,13 +153,12 @@
     background-color: var(--color-bg-accent);
   }
 
-  .delete-button {
+  .action-button {
     color: var(--color-link-text);
     background: none;
     cursor: pointer;
 
-    display: flex;
-    align-items: center;
+    display: inline-flex;
 
     border: 1px solid var(--color-link-text);
     padding: 0.3rem 0.5rem;
