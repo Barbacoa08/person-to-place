@@ -10,6 +10,7 @@
 
   import TableHeader from "./TableHeader.svelte";
   import DeleteEntry from "./DeleteEntry.svelte";
+  import EditEntry from "./EditEntry.svelte";
 
   onMount(async () => {
     tabledata = (await TauriStore.get<TableData[]>(StoreConsts.table)) || [];
@@ -44,8 +45,10 @@
     }
   });
 
-  const editEntry = async (id: string) => {
-    alert(`TODO: implement edit entry with id ${id}`);
+  const editEntry = async (updatedRow: TableData) => {
+    tabledata = tabledata.filter((row) => row.id !== updatedRow.id);
+    await TauriStore.set(StoreConsts.table, [...tabledata, updatedRow]);
+    await TauriStore.save();
   };
   const deleteEntry = async (id: string) => {
     tabledata = tabledata.filter((row) => row.id !== id);
@@ -103,13 +106,7 @@
         {/if}
 
         <td class="action-button-cell">
-          <button
-            class="action-button"
-            on:click={() => editEntry(row.id)}
-            aria-label="edit entry"
-          >
-            <EditIcon height="1rem" width="1rem" />
-          </button>
+          <EditEntry {row} {editEntry} />
 
           <DeleteEntry {row} {deleteEntry} />
         </td>
