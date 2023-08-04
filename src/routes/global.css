@@ -1,3 +1,8 @@
+/* barbajoe overrides */
+body main {
+  width: 90%;
+}
+
 /* svelte-toast overrides */
 :root {
   --toastBackground: var(--color-bg);
