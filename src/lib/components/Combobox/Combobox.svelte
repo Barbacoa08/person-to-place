@@ -12,9 +12,9 @@
   export let place = "";
   export let timezone = "";
   export let required = false;
-  const listboxId = `${id}-listbox`;
 
-  let activeOption: string | undefined = undefined; // TODO: active item id?
+  const listboxId = `${id}-listbox`;
+  const listItemId = (index: number) => `listbox-item-${index}`;
 
   const filter = (text: string) => {
     const sanitized = text.trim().toLowerCase();
@@ -28,6 +28,10 @@
   };
   $: items = filter(place);
   $: isExpanded = items.length > 1;
+
+  let hoverIndex = -1;
+  const resetHoverIndex = () => (hoverIndex = -1);
+  $: activedescendant = listItemId(hoverIndex);
 
   const isValidTimezone = (timezone: string) => {
     if (!Intl || !Intl.DateTimeFormat().resolvedOptions().timeZone) {
@@ -46,7 +50,12 @@
 <label for={id}>{label}</label>
 <!-- TODO: add timezone as `value` and place in label? -->
 
-<div class="combobox">
+<!--
+  TODO: `aria-live="polite"` does work, but it's hacky and doesn't give as good of a UX as Deque's example.
+  Need to spend some time getting this working properly.
+  Deque's example: https://dequeuniversity.com/library/aria/predictive-text
+-->
+<div class="combobox" aria-live="polite">
   <div class="group">
     <input type="hidden" value={timezone} />
     <input
@@ -57,26 +66,41 @@
       bind:value={place}
       on:keydown={(event) => {
         if (["Tab", "Enter"].includes(event.key)) {
-          if (isValidTimezone(items[0].value)) {
-            timezone = items[0].value;
-            place = items[0].text;
+          hoverIndex = hoverIndex === -1 ? 0 : hoverIndex;
+          if (isValidTimezone(items[hoverIndex].value)) {
+            timezone = items[hoverIndex].value;
+            place = items[hoverIndex].text;
           } else {
             timezone = "";
             place = "";
           }
+          resetHoverIndex();
         } else if (event.key === "Escape") {
+          resetHoverIndex();
           event.preventDefault();
           event.stopPropagation();
           timezone = "";
           place = "";
+        } else if (event.key === "ArrowDown") {
+          event.preventDefault();
+          event.stopPropagation();
+          hoverIndex = Math.min(hoverIndex + 1, items.length - 1);
+        } else if (event.key === "ArrowUp") {
+          event.preventDefault();
+          event.stopPropagation();
+          hoverIndex = Math.max(hoverIndex - 1, 0);
+        } else {
+          resetHoverIndex();
         }
       }}
       type="text"
       role="combobox"
+      autocomplete="off"
+      aria-owns={listboxId}
       aria-autocomplete="list"
       aria-controls={listboxId}
       aria-expanded={isExpanded}
-      data-active-option={activeOption}
+      aria-activedescendant={activedescendant}
     />
     <button
       type="button"
@@ -97,12 +121,13 @@
     aria-label={label}
     class:hidden={!isExpanded}
   >
-    {#each items as item}
+    {#each items as item, index}
       <li
         class="active"
         role="option"
-        aria-selected={place === item.value}
-        id={`listbox-item-${item.value}`}
+        aria-selected={place === item.value || hoverIndex === index}
+        id={listItemId(index)}
+        tabindex={hoverIndex === index ? 0 : -1}
         on:click={() => {
           timezone = item.value;
           place = item.text;
@@ -112,6 +137,19 @@
           if (event.key === "Enter") {
             timezone = item.value;
             place = item.text;
+          } else if (event.key === "ArrowDown") {
+            event.preventDefault();
+            event.stopPropagation();
+            hoverIndex = Math.min(hoverIndex + 1, items.length - 1);
+          } else if (event.key === "ArrowUp") {
+            event.preventDefault();
+            event.stopPropagation();
+            hoverIndex = Math.max(hoverIndex - 1, 0);
+          } else if (event.key === "Escape") {
+            event.preventDefault();
+            event.stopPropagation();
+            timezone = "";
+            place = "";
           }
         }}
       >
