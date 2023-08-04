@@ -45,7 +45,7 @@
   });
 
   const editEntry = async (id: string) => {
-    alert("TODO: implement edit entry");
+    alert(`TODO: implement edit entry with id ${id}`);
   };
   const deleteEntry = async (id: string) => {
     // TODO: ask for confirmation
