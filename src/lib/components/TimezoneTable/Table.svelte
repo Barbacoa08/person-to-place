@@ -132,6 +132,5 @@
   .limitcolumnwidth:hover {
     overflow: visible;
     white-space: normal;
-    background-color: var(--color-bg-accent);
   }
 </style>

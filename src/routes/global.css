@@ -29,9 +29,13 @@ table.thepp-table {
   margin-top: 1rem;
 
   & th {
+    vertical-align: top;
     font-size: larger;
+    text-align: left;
     padding: 0.5rem;
-    height: 27px; /* HACK: looks wrong without setting the height, unsure how to fix the offset */
+    border: 2px solid var(--color-bg-accent);
+    border-left: none;
+    border-right: none;
 
     & .sortable {
       cursor: pointer;
@@ -47,25 +51,28 @@ table.thepp-table {
   }
 
   & td {
-    border: 1px solid #ddd;
+    border-bottom: 1px solid var(--color-bg-accent);
     padding: 8px;
-  }
 
-  & td.action-button-cell {
-    display: flex;
-    justify-content: space-evenly;
-    border: none;
+    &.action-button-cell {
+      text-align: end;
 
-    & button.action-button {
-      color: var(--color-link-text);
-      background: none;
-      cursor: pointer;
+      & button.action-button {
+        color: var(--color-link-text);
+        background: none;
+        cursor: pointer;
 
-      display: inline-flex;
+        display: inline-flex;
 
-      border: 1px solid var(--color-link-text);
-      padding: 0.3rem 0.5rem;
-      border-radius: 0.5rem;
+        border: 1px solid var(--color-link-text);
+        padding: 0.3rem 0.5rem;
+        border-radius: 0.5rem;
+
+        &:hover {
+          color: var(--color-link-text-hover);
+          border-color: var(--color-link-text-hover);
+        }
+      }
     }
   }
 }
