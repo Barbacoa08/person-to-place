@@ -16,8 +16,6 @@
   const listboxId = `${id}-listbox`;
   const listItemId = (index: number) => `listbox-item-${index}`;
 
-  let activeOption: string | undefined = undefined; // TODO: active item id?
-
   const filter = (text: string) => {
     const sanitized = text.trim().toLowerCase();
 
@@ -91,7 +89,6 @@
       aria-autocomplete="list"
       aria-controls={listboxId}
       aria-expanded={isExpanded}
-      data-active-option={activeOption}
     />
     <button
       type="button"
