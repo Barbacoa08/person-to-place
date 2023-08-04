@@ -7,7 +7,7 @@
     distDir: "../build",
   },
   package: {
-    productName: "Person to Timezone",
+    productName: "Person to Place",
     version: "../package.json",
   },
   tauri: {
@@ -58,7 +58,7 @@
         fullscreen: false,
         height: 600,
         resizable: true,
-        title: "Person to Timezone",
+        title: "Person to Place",
         width: 800,
       },
     ],

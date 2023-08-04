@@ -12,7 +12,7 @@
     src: "/favicon.ico",
     alt: "Logo",
     ariaLabel: "go to landing page",
-    text: "Person to Timezone",
+    text: "Person to Place",
   };
 
   const options = {
