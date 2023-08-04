@@ -6,13 +6,10 @@
   import { Store } from "tauri-plugin-store-api";
   import { onMount } from "svelte";
 
-  import { PreferencesStore, StoreConsts } from "$utils";
-
+  import { InfoIcon, SettingsIcon } from "$lib/icons";
   import type { Preferences } from "$types/Store";
-
-  import SettingsIcon from "./SettingsIcon.svelte";
+  import { PreferencesStore, StoreConsts } from "$utils";
   import Tooltip from "./Tooltip.svelte";
-  import InfoIcon from "./InfoIcon.svelte";
 
   onMount(() => getPreferences());
 

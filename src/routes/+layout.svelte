@@ -5,7 +5,7 @@
 
   import "./global.css";
 
-  import { InsertEntry, UserPreferences } from "$lib";
+  import { InsertEntry, UserPreferences } from "$lib/components";
 
   const logo: LogoData = {
     href: "/",

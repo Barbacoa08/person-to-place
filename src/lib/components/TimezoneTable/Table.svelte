@@ -3,13 +3,11 @@
 
   import { onDestroy, onMount } from "svelte";
 
+  import { DeleteIcon, EditIcon } from "$lib/icons";
+  import type { Preferences, TableData } from "$types/Store";
   import { StoreConsts } from "$utils";
   import { PreferencesStore } from "$utils/stores";
-  import type { Preferences, TableData } from "$types/Store";
-
   import TableHeader from "./TableHeader.svelte";
-  import DeleteIcon from "./DeleteIcon.svelte";
-  import EditIcon from "./EditIcon.svelte";
 
   onMount(async () => {
     tabledata = (await TauriStore.get<TableData[]>(StoreConsts.table)) || [];

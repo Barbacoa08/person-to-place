@@ -4,10 +4,10 @@
   import { Store } from "tauri-plugin-store-api";
 
   import { guid, StoreConsts } from "$utils";
+  import { SelectPlace } from "$lib/components";
   import type { TableData } from "$types/Store";
 
-  import InsertIcon from "./InsertIcon.svelte";
-  import SelectPlace from "./SelectPlace.svelte";
+  import { InsertIcon } from "$lib/icons";
 
   let showModal = false;
   let name = "";

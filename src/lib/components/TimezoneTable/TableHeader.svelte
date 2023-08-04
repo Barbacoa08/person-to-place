@@ -1,11 +1,10 @@
 <script lang="ts">
+  import { onDestroy } from "svelte";
   import Search from "svelte-search";
 
+  import { SearchIcon } from "$lib/icons";
   import type { Preferences } from "$types/Store";
   import { PreferencesStore } from "$utils";
-
-  import SearchIcon from "./SearchIcon.svelte";
-  import { onDestroy } from "svelte";
 
   onDestroy(() => unsubscribe());
 
@@ -14,7 +13,7 @@
 
   let preferences: Preferences;
   const unsubscribe = PreferencesStore.subscribe(
-    (value) => (preferences = value)
+    (value) => (preferences = value),
   );
   $: currenttime = now.toLocaleString(preferences.locale, {
     hour: "numeric",
@@ -26,7 +25,11 @@
 <div class="container">
   <div class="table-search">
     <SearchIcon class="table-search-input-icon" />
-    <Search autofocus label="Search Person, Place, or Timezone" bind:value={search} />
+    <Search
+      autofocus
+      label="Search Person, Place, or Timezone"
+      bind:value={search}
+    />
   </div>
 
   <div class="current-time">
