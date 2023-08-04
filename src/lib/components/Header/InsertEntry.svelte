@@ -80,12 +80,3 @@
     <button class="modal-action-button" on:click={insert}> insert </button>
   </svelte:fragment>
 </Modal>
-
-<style>
-  form {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-</style>
