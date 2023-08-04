@@ -28,7 +28,10 @@
   };
   $: items = filter(place);
   $: isExpanded = items.length > 1;
-  let hoverIndex = 0;
+
+  let hoverIndex = -1;
+  const resetHoverIndex = () => (hoverIndex = -1);
+  $: activedescendant = listItemId(hoverIndex);
 
   const isValidTimezone = (timezone: string) => {
     if (!Intl || !Intl.DateTimeFormat().resolvedOptions().timeZone) {
@@ -58,6 +61,7 @@
       bind:value={place}
       on:keydown={(event) => {
         if (["Tab", "Enter"].includes(event.key)) {
+          hoverIndex = hoverIndex === -1 ? 0 : hoverIndex;
           if (isValidTimezone(items[hoverIndex].value)) {
             timezone = items[hoverIndex].value;
             place = items[hoverIndex].text;
@@ -65,9 +69,9 @@
             timezone = "";
             place = "";
           }
-          hoverIndex = 0;
+          resetHoverIndex();
         } else if (event.key === "Escape") {
-          hoverIndex = 0;
+          resetHoverIndex();
           event.preventDefault();
           event.stopPropagation();
           timezone = "";
@@ -81,7 +85,7 @@
           event.stopPropagation();
           hoverIndex = Math.max(hoverIndex - 1, 0);
         } else {
-          hoverIndex = 0;
+          resetHoverIndex();
         }
       }}
       type="text"
@@ -89,6 +93,7 @@
       aria-autocomplete="list"
       aria-controls={listboxId}
       aria-expanded={isExpanded}
+      aria-activedescendant={activedescendant}
     />
     <button
       type="button"
