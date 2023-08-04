@@ -28,6 +28,7 @@
   };
   $: items = filter(place);
   $: isExpanded = items.length > 1;
+  let hoverIndex = 0;
 
   const isValidTimezone = (timezone: string) => {
     if (!Intl || !Intl.DateTimeFormat().resolvedOptions().timeZone) {
@@ -57,6 +58,7 @@
       bind:value={place}
       on:keydown={(event) => {
         if (["Tab", "Enter"].includes(event.key)) {
+          hoverIndex = 0;
           if (isValidTimezone(items[0].value)) {
             timezone = items[0].value;
             place = items[0].text;
@@ -65,10 +67,13 @@
             place = "";
           }
         } else if (event.key === "Escape") {
+          hoverIndex = 0;
           event.preventDefault();
           event.stopPropagation();
           timezone = "";
           place = "";
+        } else {
+          hoverIndex = 0;
         }
       }}
       type="text"
@@ -97,12 +102,13 @@
     aria-label={label}
     class:hidden={!isExpanded}
   >
-    {#each items as item}
+    {#each items as item, index}
       <li
         class="active"
         role="option"
         aria-selected={place === item.value}
         id={`listbox-item-${item.value}`}
+        tabindex={hoverIndex === index ? 0 : -1}
         on:click={() => {
           timezone = item.value;
           place = item.text;
