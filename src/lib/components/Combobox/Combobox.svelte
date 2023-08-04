@@ -24,7 +24,7 @@
         key: "text",
         limit: 10,
       })
-      .map((o: any) => o.obj);
+      .map((o) => o.obj);
   };
   $: items = filter(place);
   $: isExpanded = items.length > 1;
