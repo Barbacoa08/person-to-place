@@ -5,14 +5,14 @@
 
   import "./global.css";
 
-  import { InsertEntry, UserPreferences } from "$lib";
+  import { InsertEntry, UserPreferences } from "$lib/components";
 
   const logo: LogoData = {
     href: "/",
     src: "/favicon.ico",
     alt: "Logo",
     ariaLabel: "go to landing page",
-    text: "Person to Timezone",
+    text: "Person to Place",
   };
 
   const options = {

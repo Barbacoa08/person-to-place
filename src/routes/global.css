@@ -21,3 +21,24 @@ header .header button.modal-button {
   padding: 0.3rem 0.5rem;
   border-radius: 0.5rem;
 }
+
+/* table ish */
+table td .action-button {
+  color: var(--color-link-text);
+  background: none;
+  cursor: pointer;
+
+  display: inline-flex;
+
+  border: 1px solid var(--color-link-text);
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.5rem;
+}
+
+/* modal forms */
+dialog form {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

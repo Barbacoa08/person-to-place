@@ -3,13 +3,13 @@
 
   import { onDestroy, onMount } from "svelte";
 
+  import type { Preferences, TableData } from "$types/Store";
   import { StoreConsts } from "$utils";
   import { PreferencesStore } from "$utils/stores";
-  import type { Preferences, TableData } from "$types/Store";
 
   import TableHeader from "./TableHeader.svelte";
-  import DeleteIcon from "./DeleteIcon.svelte";
-  import EditIcon from "./EditIcon.svelte";
+  import DeleteEntry from "./DeleteEntry.svelte";
+  import EditEntry from "./EditEntry.svelte";
 
   onMount(async () => {
     tabledata = (await TauriStore.get<TableData[]>(StoreConsts.table)) || [];
@@ -44,11 +44,12 @@
     }
   });
 
-  const editEntry = async (id: string) => {
-    alert(`TODO: implement edit entry with id ${id}`);
+  const editEntry = async (updatedRow: TableData) => {
+    tabledata = tabledata.filter((row) => row.id !== updatedRow.id);
+    await TauriStore.set(StoreConsts.table, [...tabledata, updatedRow]);
+    await TauriStore.save();
   };
   const deleteEntry = async (id: string) => {
-    // TODO: ask for confirmation
     tabledata = tabledata.filter((row) => row.id !== id);
     await TauriStore.set(StoreConsts.table, tabledata);
     await TauriStore.save();
@@ -104,17 +105,9 @@
         {/if}
 
         <td class="action-button-cell">
-          <button
-            class="action-button"
-            on:click={() => editEntry(row.id)}
-            aria-label="edit entry"
-          >
-            <EditIcon height="1rem" width="1rem" />
-          </button>
+          <EditEntry {row} {editEntry} />
 
-          <button class="action-button" on:click={() => deleteEntry(row.id)}>
-            <DeleteIcon height="1rem" width="1rem" />
-          </button>
+          <DeleteEntry {row} {deleteEntry} />
         </td>
       </tr>
     {/each}
@@ -151,17 +144,5 @@
     overflow: visible;
     white-space: normal;
     background-color: var(--color-bg-accent);
-  }
-
-  .action-button {
-    color: var(--color-link-text);
-    background: none;
-    cursor: pointer;
-
-    display: inline-flex;
-
-    border: 1px solid var(--color-link-text);
-    padding: 0.3rem 0.5rem;
-    border-radius: 0.5rem;
   }
 </style>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import cityTimezones from "city-timezones";
 
-  import { Combobox } from "$lib";
+  import { Combobox } from "$lib/components";
 
   export let place = "";
   export let timezone = "";

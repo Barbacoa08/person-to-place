@@ -1,5 +1,5 @@
 <script>
-  import { TimezoneTable } from "$lib";
+  import { TimezoneTable } from "$lib/components";
 </script>
 
 <TimezoneTable />

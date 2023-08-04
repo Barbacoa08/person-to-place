@@ -4,10 +4,10 @@
   import { Store } from "tauri-plugin-store-api";
 
   import { guid, StoreConsts } from "$utils";
+  import { SelectPlace } from "$lib/components";
   import type { TableData } from "$types/Store";
 
-  import InsertIcon from "./InsertIcon.svelte";
-  import SelectPlace from "./SelectPlace.svelte";
+  import { InsertIcon } from "$lib/icons";
 
   let showModal = false;
   let name = "";
@@ -80,12 +80,3 @@
     <button class="modal-action-button" on:click={insert}> insert </button>
   </svelte:fragment>
 </Modal>
-
-<style>
-  form {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-</style>
