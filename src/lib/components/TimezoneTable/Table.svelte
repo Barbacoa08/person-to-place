@@ -56,6 +56,8 @@
   };
 </script>
 
+<p>test</p>
+
 <TableHeader now={currenttime} bind:search />
 
 <table>
