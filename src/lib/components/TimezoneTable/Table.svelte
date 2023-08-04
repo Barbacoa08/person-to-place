@@ -3,7 +3,6 @@
 
   import { onDestroy, onMount } from "svelte";
 
-  import { EditIcon } from "$lib/icons";
   import type { Preferences, TableData } from "$types/Store";
   import { StoreConsts } from "$utils";
   import { PreferencesStore } from "$utils/stores";
