@@ -26,7 +26,7 @@
 <div class="container">
   <div class="table-search">
     <SearchIcon class="table-search-input-icon" />
-    <Search autofocus label="Search Person or Timezone" bind:value={search} />
+    <Search autofocus label="Search Person, Place, or Timezone" bind:value={search} />
   </div>
 
   <div class="current-time">
@@ -56,6 +56,10 @@
   .current-time div:last-child {
     font-size: 1.5rem;
     font-weight: bold;
+  }
+
+  .table-search {
+    min-width: 310px;
   }
 
   :global(.table-search [data-svelte-search] label) {

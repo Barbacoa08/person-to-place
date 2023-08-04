@@ -22,8 +22,11 @@
   const interval = setInterval(() => (currenttime = new Date()), 10_000);
 
   $: search = "";
-  $: filteredtabledata = tabledata.filter((row) =>
-    row.name.toLowerCase().includes(search.toLowerCase()),
+  $: filteredtabledata = tabledata.filter(
+    (row) =>
+      row.name.toLowerCase().includes(search.toLowerCase()) ||
+      row.place.toLowerCase().includes(search.toLowerCase()) ||
+      row.timezone.toLowerCase().includes(search.toLowerCase()),
   );
 
   // bound variables
