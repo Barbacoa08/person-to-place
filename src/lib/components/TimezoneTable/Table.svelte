@@ -107,7 +107,7 @@
         {/if}
 
         {#if preferences.showNotes}
-          <td class="limitcolumnwidth">{row.notes}</td>
+          <td class="notes-expandable">{row.notes}</td>
         {/if}
 
         <td class="action-button-cell">
@@ -121,16 +121,19 @@
 </table>
 
 <style>
-  .limitcolumnwidth {
+  .notes-expandable {
     max-width: 200px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
 
-  /* show tooltip with full content on hover of this td */
-  .limitcolumnwidth:hover {
-    overflow: visible;
-    white-space: normal;
+    transition: transform 0.15s cubic-bezier(0, 0.2, 0.5, 3) 0s;
+
+    /* show tooltip with full content on hover of this td */
+    &:hover {
+      overflow: visible;
+      white-space: normal;
+      transform: scale(1.02);
+    }
   }
 </style>
