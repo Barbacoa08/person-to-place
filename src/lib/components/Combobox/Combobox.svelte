@@ -50,7 +50,12 @@
 <label for={id}>{label}</label>
 <!-- TODO: add timezone as `value` and place in label? -->
 
-<div class="combobox">
+<!--
+  TODO: `aria-live="polite"` does work, but it's hacky and doesn't give as good of a UX as Deque's example.
+  Need to spend some time getting this working properly.
+  Deque's example: https://dequeuniversity.com/library/aria/predictive-text
+-->
+<div class="combobox" aria-live="polite">
   <div class="group">
     <input type="hidden" value={timezone} />
     <input
@@ -90,6 +95,8 @@
       }}
       type="text"
       role="combobox"
+      autocomplete="off"
+      aria-owns={listboxId}
       aria-autocomplete="list"
       aria-controls={listboxId}
       aria-expanded={isExpanded}
