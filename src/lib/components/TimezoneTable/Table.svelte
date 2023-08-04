@@ -10,6 +10,7 @@
   import TableHeader from "./TableHeader.svelte";
   import DeleteEntry from "./DeleteEntry.svelte";
   import EditEntry from "./EditEntry.svelte";
+  import SortableTh from "./SortableTH.svelte";
 
   onMount(async () => {
     tabledata = (await TauriStore.get<TableData[]>(StoreConsts.table)) || [];
@@ -58,20 +59,25 @@
 
 <TableHeader now={currenttime} bind:search />
 
-<table>
+<table class="thepp-table">
   <thead>
     <tr>
-      <th>Name</th>
+      <SortableTh>Name</SortableTh>
+
       <th>Currently</th>
+
       {#if preferences.showTimezone}
-        <th>Timezone</th>
+        <SortableTh>Timezone</SortableTh>
       {/if}
+
       {#if preferences.showPlace}
-        <th>Place</th>
+        <SortableTh>Place</SortableTh>
       {/if}
+
       {#if preferences.showNotes}
         <th>Notes</th>
       {/if}
+
       <th />
     </tr>
   </thead>
@@ -115,23 +121,6 @@
 </table>
 
 <style>
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-top: 1rem;
-
-    & td {
-      border: 1px solid #ddd;
-      padding: 8px;
-    }
-
-    & td.action-button-cell {
-      display: flex;
-      justify-content: space-evenly;
-      border: none;
-    }
-  }
-
   .limitcolumnwidth {
     max-width: 200px;
     white-space: nowrap;

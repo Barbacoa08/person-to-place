@@ -1,3 +1,12 @@
+import ChevronDown from "./ChevronDown.svelte";
+export { ChevronDown };
+
+import ChevronUp from "./ChevronUp.svelte";
+export { ChevronUp };
+
+import ChevronUpDown from "./ChevronUpDown.svelte";
+export { ChevronUpDown };
+
 import DeleteIcon from "./DeleteIcon.svelte";
 export { DeleteIcon };
 

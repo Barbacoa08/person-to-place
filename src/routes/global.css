@@ -23,16 +23,51 @@ header .header button.modal-button {
 }
 
 /* table ish */
-table td .action-button {
-  color: var(--color-link-text);
-  background: none;
-  cursor: pointer;
+table.thepp-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 1rem;
 
-  display: inline-flex;
+  & th {
+    font-size: larger;
+    padding: 0.5rem;
+    height: 27px; /* HACK: looks wrong without setting the height, unsure how to fix the offset */
 
-  border: 1px solid var(--color-link-text);
-  padding: 0.3rem 0.5rem;
-  border-radius: 0.5rem;
+    & .sortable {
+      cursor: pointer;
+      user-select: none;
+
+      display: flex;
+      justify-content: space-between;
+
+      &:hover {
+        color: var(--color-link-text-hover);
+      }
+    }
+  }
+
+  & td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  & td.action-button-cell {
+    display: flex;
+    justify-content: space-evenly;
+    border: none;
+
+    & button.action-button {
+      color: var(--color-link-text);
+      background: none;
+      cursor: pointer;
+
+      display: inline-flex;
+
+      border: 1px solid var(--color-link-text);
+      padding: 0.3rem 0.5rem;
+      border-radius: 0.5rem;
+    }
+  }
 }
 
 /* modal forms */
