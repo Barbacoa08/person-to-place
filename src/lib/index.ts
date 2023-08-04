@@ -1,3 +1,6 @@
+import Combobox from "./components/Combobox";
+export { Combobox };
+
 import InsertEntry from "./components/Header/InsertEntry.svelte";
 export { InsertEntry };
 

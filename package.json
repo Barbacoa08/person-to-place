@@ -37,9 +37,11 @@
     "@typescript-eslint/eslint-plugin": "6.2.0",
     "@typescript-eslint/parser": "6.2.0",
     "@zerodevx/svelte-toast": "0.9.5",
+    "city-timezones": "1.2.1",
     "eslint": "8.46.0",
     "eslint-config-prettier": "8.9.0",
     "eslint-plugin-svelte": "2.32.4",
+    "fuzzysort": "2.0.4",
     "prettier": "3.0.0",
     "prettier-plugin-svelte": "3.0.3",
     "svelte": "4.1.1",
@@ -52,7 +54,6 @@
   },
   "dependencies": {
     "@tauri-apps/api": "1.4.0",
-    "@vvo/tzdb": "6.108.0",
     "iso-639-1": "2.1.15",
     "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#v1",
     "tauri-plugin-window-state-api": "github:tauri-apps/tauri-plugin-window-state#v1"

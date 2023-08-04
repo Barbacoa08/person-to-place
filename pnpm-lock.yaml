@@ -8,9 +8,6 @@ dependencies:
   '@tauri-apps/api':
     specifier: 1.4.0
     version: 1.4.0
-  '@vvo/tzdb':
-    specifier: 6.108.0
-    version: 6.108.0
   iso-639-1:
     specifier: 2.1.15
     version: 2.1.15
@@ -49,6 +46,9 @@ devDependencies:
   '@zerodevx/svelte-toast':
     specifier: 0.9.5
     version: 0.9.5(svelte@4.1.1)
+  city-timezones:
+    specifier: 1.2.1
+    version: 1.2.1
   eslint:
     specifier: 8.46.0
     version: 8.46.0
@@ -58,6 +58,9 @@ devDependencies:
   eslint-plugin-svelte:
     specifier: 2.32.4
     version: 2.32.4(eslint@8.46.0)(svelte@4.1.1)
+  fuzzysort:
+    specifier: 2.0.4
+    version: 2.0.4
   prettier:
     specifier: 3.0.0
     version: 3.0.0
@@ -841,10 +844,6 @@ packages:
       pretty-format: 29.6.1
     dev: true
 
-  /@vvo/tzdb@6.108.0:
-    resolution: {integrity: sha512-/UI2yKYNlcPVsVajMNcLfcsZgD+TtmE9hsN+3JTrk8N4/Kwlr35SqMOZuSU7lwWG+PvWmWKs51f2SMM0JGWxww==}
-    dev: false
-
   /@zerodevx/svelte-toast@0.9.5(svelte@4.1.1):
     resolution: {integrity: sha512-JLeB/oRdJfT+dz9A5bgd3Z7TuQnBQbeUtXrGIrNWMGqWbabpepBF2KxtWVhL2qtxpRqhae2f6NAOzH7xs4jUSw==}
     peerDependencies:
@@ -1013,6 +1012,12 @@ packages:
       readdirp: 3.6.0
     optionalDependencies:
       fsevents: 2.3.2
+    dev: true
+
+  /city-timezones@1.2.1:
+    resolution: {integrity: sha512-hruuB611QFoUFMsan7xd9B2VPMrA8XC716O/999WW34kmaJUT1hxKF2W8TSXAWkhSqgvbu70DjcDv7/wpM6vow==}
+    dependencies:
+      lodash: 4.17.21
     dev: true
 
   /code-red@1.0.3:
@@ -1395,6 +1400,10 @@ packages:
     dev: true
     optional: true
 
+  /fuzzysort@2.0.4:
+    resolution: {integrity: sha512-Api1mJL+Ad7W7vnDZnWq5pGaXJjyencT+iKGia2PlHUcSsSzWwIQ3S1isiMpwpavjYtGd2FzhUIhnnhOULZgDw==}
+    dev: true
+
   /get-func-name@2.0.0:
     resolution: {integrity: sha512-Hm0ixYtaSZ/V7C8FJrtZIuBBI+iSgL+1Aq82zSu8VQNB4S3Gk8e7Qs3VwBDJAhmRZcFqkl3tQu36g/Foh5I5ig==}
     dev: true
@@ -1592,6 +1601,10 @@ packages:
 
   /lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
+    dev: true
+
+  /lodash@4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
     dev: true
 
   /loupe@2.3.6:

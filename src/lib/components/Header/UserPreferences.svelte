@@ -68,6 +68,7 @@
         locale: await invoke("current_locale").catch(() => "en-US"),
         showNotes: true,
         showTimezone: true,
+        showPlace: true,
         use24HourTime: true,
       } as Preferences;
       PreferencesStore.set(preferences);
@@ -154,6 +155,11 @@
             <label>
               <input type="checkbox" bind:checked={preferences.showTimezone} />
               <span>Show Timezone</span>
+            </label>
+
+            <label>
+              <input type="checkbox" bind:checked={preferences.showPlace} />
+              <span>Show Place</span>
             </label>
           </div>
         </div>

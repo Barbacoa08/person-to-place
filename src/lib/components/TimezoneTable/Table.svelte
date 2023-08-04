@@ -19,7 +19,7 @@
   });
 
   let currenttime = new Date();
-  const interval = setInterval(() => (currenttime = new Date()), 60_000);
+  const interval = setInterval(() => (currenttime = new Date()), 10_000);
 
   $: search = "";
   $: filteredtabledata = tabledata.filter((row) =>
@@ -57,6 +57,9 @@
       {#if preferences.showTimezone}
         <th>Timezone</th>
       {/if}
+      {#if preferences.showPlace}
+        <th>Place</th>
+      {/if}
       {#if preferences.showNotes}
         <th>Notes</th>
       {/if}
@@ -82,6 +85,10 @@
 
         {#if preferences.showTimezone}
           <td>{row.timezone}</td>
+        {/if}
+
+        {#if preferences.showPlace}
+          <td>{row.place}</td>
         {/if}
 
         {#if preferences.showNotes}
