@@ -3,20 +3,13 @@
   import { toast } from "@zerodevx/svelte-toast";
   import { Store } from "tauri-plugin-store-api";
 
-  import { onMount } from "svelte";
-
   import { guid, StoreConsts } from "$utils";
   import type { TableData } from "$types/Store";
 
   import InsertIcon from "./InsertIcon.svelte";
   import SelectPlace from "./SelectPlace.svelte";
 
-  onMount(async () => {
-    tabledata = (await store.get(StoreConsts.table)) || [];
-  });
-
   let showModal = false;
-  let tabledata: TableData[] = [];
   let name = "";
   let timezone = "";
   let notes = "";
@@ -36,8 +29,8 @@
       timezone: timezone.trim(),
       notes: notes.trim(),
     };
-    tabledata.push(data);
-    await store.set(StoreConsts.table, tabledata);
+    const tabledata: TableData[] = (await store.get(StoreConsts.table)) || [];
+    await store.set(StoreConsts.table, [...tabledata, data]);
     await store.save();
     toast.push("Entry Inserted");
     clearAndClose();

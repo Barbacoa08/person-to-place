@@ -19,7 +19,7 @@
   });
 
   let currenttime = new Date();
-  const interval = setInterval(() => (currenttime = new Date()), 60_000);
+  const interval = setInterval(() => (currenttime = new Date()), 10_000);
 
   $: search = "";
   $: filteredtabledata = tabledata.filter((row) =>
