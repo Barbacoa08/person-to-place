@@ -48,6 +48,7 @@
     alert("TODO: implement edit entry");
   };
   const deleteEntry = async (id: string) => {
+    // TODO: ask for confirmation
     tabledata = tabledata.filter((row) => row.id !== id);
     await TauriStore.set(StoreConsts.table, tabledata);
     await TauriStore.save();
