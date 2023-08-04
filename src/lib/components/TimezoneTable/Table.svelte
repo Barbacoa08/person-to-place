@@ -30,6 +30,25 @@
       row.place.toLowerCase().includes(search.toLowerCase()) ||
       row.timezone.toLowerCase().includes(search.toLowerCase()),
   );
+  $: sortedtabledata = filteredtabledata.sort((a, b) => {
+    /*
+      TODO: sort by all three options, sort by _only_ one
+      option at a time, reset others when any one changes.
+    */
+    if (nameSorted && nameSortDirection === "asc") {
+      if (a.name < b.name) return -1;
+      else if (a.name > b.name) return 1;
+      else return 0;
+    } else if (nameSorted && nameSortDirection === "desc") {
+      if (a.name < b.name) return 1;
+      else if (a.name > b.name) return -1;
+      else return 0;
+    } else {
+      return 0;
+    }
+  });
+  let nameSorted = false;
+  let nameSortDirection: "asc" | "desc" | undefined = undefined;
 
   // bound variables
   let tabledata: TableData[] = [];
@@ -62,7 +81,12 @@
 <table class="thepp-table">
   <thead>
     <tr>
-      <SortableTh>Name</SortableTh>
+      <SortableTh
+        bind:sorted={nameSorted}
+        bind:sortDirection={nameSortDirection}
+      >
+        Name
+      </SortableTh>
 
       <th>Currently</th>
 
@@ -83,7 +107,7 @@
   </thead>
 
   <tbody>
-    {#each filteredtabledata as row}
+    {#each sortedtabledata as row}
       <tr>
         <td>{row.name}</td>
 
