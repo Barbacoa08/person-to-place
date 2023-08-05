@@ -11,6 +11,7 @@
   import DeleteEntry from "./DeleteEntry.svelte";
   import EditEntry from "./EditEntry.svelte";
   import SortableTh from "./SortableTH.svelte";
+  import { tableSort } from "./utils";
 
   onMount(async () => {
     tabledata = (await TauriStore.get<TableData[]>(StoreConsts.table)) || [];
@@ -30,25 +31,58 @@
       row.place.toLowerCase().includes(search.toLowerCase()) ||
       row.timezone.toLowerCase().includes(search.toLowerCase()),
   );
-  $: sortedtabledata = filteredtabledata.sort((a, b) => {
-    /*
-      TODO: sort by all three options, sort by _only_ one
-      option at a time, reset others when any one changes.
-    */
-    if (nameSorted && nameSortDirection === "asc") {
-      if (a.name < b.name) return -1;
-      else if (a.name > b.name) return 1;
-      else return 0;
-    } else if (nameSorted && nameSortDirection === "desc") {
-      if (a.name < b.name) return 1;
-      else if (a.name > b.name) return -1;
-      else return 0;
-    } else {
-      return 0;
-    }
-  });
+  $: sortedtabledata = sortData(
+    [...filteredtabledata],
+    sortCriteria,
+    sortDirection,
+  );
+
+  type SortDirection = "asc" | "desc" | undefined;
   let nameSorted = false;
-  let nameSortDirection: "asc" | "desc" | undefined = undefined;
+  let nameSortDirection: SortDirection = undefined;
+  let timezoneSorted = false;
+  let timezoneSortDirection: SortDirection = undefined;
+  let placeSorted = false;
+  let placeSortDirection: SortDirection = undefined;
+
+  type SortCriteria = "name" | "timezone" | "place" | undefined;
+  let sortCriteria: SortCriteria;
+  $: if (nameSorted) {
+    sortCriteria = "name";
+  }
+  $: if (timezoneSorted) {
+    sortCriteria = "timezone";
+  }
+  $: if (placeSorted) {
+    sortCriteria = "place";
+  }
+
+  $: sortDirection =
+    nameSortDirection || timezoneSortDirection || placeSortDirection;
+
+  const sortData = (
+    data: TableData[],
+    criteria: SortCriteria,
+    dir: SortDirection,
+  ): TableData[] => {
+    switch (criteria) {
+      case "name":
+        timezoneSorted = false;
+        placeSorted = false;
+        return data.sort((a, b) => tableSort(a, b, "name", dir));
+      case "timezone":
+        nameSorted = false;
+        placeSorted = false;
+        return data.sort((a, b) => tableSort(a, b, "timezone", dir));
+      case "place":
+        nameSorted = false;
+        timezoneSorted = false;
+        return data.sort((a, b) => tableSort(a, b, "place", dir));
+      default:
+        // NOTE: this should only be hit on initial load
+        return data;
+    }
+  };
 
   // bound variables
   let tabledata: TableData[] = [];
@@ -91,11 +125,21 @@
       <th>Currently</th>
 
       {#if preferences.showTimezone}
-        <SortableTh>Timezone</SortableTh>
+        <SortableTh
+          bind:sorted={timezoneSorted}
+          bind:sortDirection={timezoneSortDirection}
+        >
+          Timezone
+        </SortableTh>
       {/if}
 
       {#if preferences.showPlace}
-        <SortableTh>Place</SortableTh>
+        <SortableTh
+          bind:sorted={placeSorted}
+          bind:sortDirection={placeSortDirection}
+        >
+          Place
+        </SortableTh>
       {/if}
 
       {#if preferences.showNotes}
