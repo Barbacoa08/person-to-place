@@ -27,7 +27,12 @@
       .map((o) => o.obj);
   };
   $: items = filter(place);
-  $: isExpanded = items.length > 1;
+  $: isCollapsed = place === items[0]?.text && timezone === items[0]?.value;
+  /*
+    NOTE: must hide listbox due to loose fuzzy matching having overlaps such as:
+    "Hamburg, Hamburg" -> "Novo Hamburgo, Rio Grande do Sul"
+    "Chincha Alta, Ica" -> "Chimaltenango, Chimaltenango"
+  */
 
   let hoverIndex = -1;
   const resetHoverIndex = () => (hoverIndex = -1);
@@ -70,12 +75,6 @@
           if (isValidTimezone(items[hoverIndex].value)) {
             timezone = items[hoverIndex].value;
             place = items[hoverIndex].text;
-            items = [];
-            /*
-              NOTE: must hide listbox due to loose fuzzy matching having overlaps such as:
-              "Hamburg, Hamburg" -> "Novo Hamburgo, Rio Grande do Sul"
-              "Chincha Alta, Ica" -> "Chimaltenango, Chimaltenango"
-            */
           } else {
             timezone = "";
             place = "";
@@ -105,7 +104,7 @@
       aria-owns={listboxId}
       aria-autocomplete="list"
       aria-controls={listboxId}
-      aria-expanded={isExpanded}
+      aria-expanded={!isCollapsed}
       aria-activedescendant={activedescendant}
     />
     <button
@@ -125,7 +124,7 @@
     id={listboxId}
     role="listbox"
     aria-label={label}
-    class:hidden={!isExpanded}
+    class:hidden={isCollapsed}
   >
     {#each items as item, index}
       <li
