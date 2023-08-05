@@ -7,7 +7,7 @@
   import { StoreConsts } from "$utils";
   import { PreferencesStore } from "$utils/stores";
 
-  import TableHeader from "./TableHeader.svelte";
+  import TableLabel from "./TableLabel.svelte";
   import DeleteEntry from "./DeleteEntry.svelte";
   import EditEntry from "./EditEntry.svelte";
   import SortableTh from "./SortableTH.svelte";
@@ -110,7 +110,7 @@
   };
 </script>
 
-<TableHeader now={currenttime} bind:search />
+<TableLabel now={currenttime} bind:search />
 
 <table class="thepp-table">
   <thead>
