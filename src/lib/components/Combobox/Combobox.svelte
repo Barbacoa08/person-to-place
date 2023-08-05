@@ -70,6 +70,12 @@
           if (isValidTimezone(items[hoverIndex].value)) {
             timezone = items[hoverIndex].value;
             place = items[hoverIndex].text;
+            items = [];
+            /*
+              NOTE: must hide listbox due to loose fuzzy matching having overlaps such as:
+              "Hamburg, Hamburg" -> "Novo Hamburgo, Rio Grande do Sul"
+              "Chincha Alta, Ica" -> "Chimaltenango, Chimaltenango"
+            */
           } else {
             timezone = "";
             place = "";
