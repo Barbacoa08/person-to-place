@@ -77,10 +77,9 @@ table.thepp-table {
   }
 }
 
-/* modal forms */
-dialog form {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+/* TODO: update css-lib with this */
+form input:disabled {
+  color: var(--color-text);
+  /* background-color: #4E4E4E; */
+  /* NOTE: this new background color is 7:1, but ish "meh" */
 }

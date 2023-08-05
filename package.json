@@ -28,7 +28,7 @@
     "format": "pnpm prettier --write ./src* --log-level warn"
   },
   "devDependencies": {
-    "@barbajoe/css-lib": "0.1.6",
+    "@barbajoe/css-lib": "0.1.7",
     "@barbajoe/svelte-lib": "0.2.6",
     "@sveltejs/adapter-auto": "2.1.0",
     "@sveltejs/adapter-static": "2.0.3",
