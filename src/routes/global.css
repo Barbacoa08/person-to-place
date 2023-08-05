@@ -80,6 +80,7 @@ table.thepp-table {
 /* TODO: update css-lib with these */
 form input:disabled {
   color: var(--color-text);
+  background-color: var(--color-bg);
   /* background-color: #4E4E4E; */
   /* NOTE: this new background color is 7:1, but ish "meh" */
 }
