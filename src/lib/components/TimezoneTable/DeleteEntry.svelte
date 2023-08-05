@@ -11,6 +11,7 @@
 </script>
 
 <button
+  id={`delete-entry-${row.id}`}
   class="action-button"
   aria-label="delete entry"
   on:click={() => (showModal = true)}

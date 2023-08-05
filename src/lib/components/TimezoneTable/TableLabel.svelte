@@ -77,7 +77,7 @@
   }
   :global(.table-search .table-search-input-icon) {
     position: absolute;
-    margin: 3.4rem 0 0 0.4rem;
+    margin: 4rem 0 0 0.4rem;
     color: var(--border-color-gray);
   }
 </style>
