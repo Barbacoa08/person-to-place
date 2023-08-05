@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { Preferences, TableData } from "$types/Store";
-  import { StoreConsts } from "$utils";
   import { PreferencesStore } from "$utils/stores";
   import { onDestroy } from "svelte";
 
