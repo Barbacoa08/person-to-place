@@ -6,27 +6,27 @@
   import { guid, StoreConsts } from "$utils";
   import { SelectPlace } from "$lib/components";
   import type { TableData } from "$types/Store";
+  import { emptyPlace, type Place } from "$types/Place";
 
   import { InsertIcon } from "$lib/icons";
 
   let showModal = false;
   let name = "";
-  let timezone = "";
   let notes = "";
-  let place = "";
+  let place: Place = emptyPlace;
 
   const store = new Store(StoreConsts.path);
   const insert = async () => {
-    if (!name.trim() || !timezone.trim()) {
-      toast.push("Name and Timezone are required");
+    if (!name.trim() || !place.text.trim()) {
+      toast.push("Name and Place are required");
       return;
     }
 
     const data: TableData = {
       id: guid(),
       name: name.trim(),
-      place: place.trim(),
-      timezone: timezone.trim(),
+      place: place.text.trim(),
+      timezone: place.timezone.trim(),
       notes: notes.trim(),
     };
     const tabledata: TableData[] = (await store.get(StoreConsts.table)) || [];
@@ -38,8 +38,7 @@
 
   const clearAndClose = () => {
     name = "";
-    timezone = "";
-    place = "";
+    place = emptyPlace;
     notes = "";
     showModal = false;
   };
@@ -63,7 +62,7 @@
     </div>
 
     <div>
-      <SelectPlace bind:place bind:timezone />
+      <SelectPlace bind:place />
     </div>
 
     <div>

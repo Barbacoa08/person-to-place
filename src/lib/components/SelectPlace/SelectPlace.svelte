@@ -1,15 +1,25 @@
 <script lang="ts">
   import cityTimezones from "city-timezones";
 
+  import { emptyPlace, type Place } from "$types/Place";
+
   import { Combobox } from "./Combobox";
 
-  export let place = "";
-  export let timezone = "";
+  export let place: Place = emptyPlace;
 
-  const options = cityTimezones.cityMapping.map((city) => ({
-    text: `${city.city_ascii}, ${city.province}`,
-    value: city.timezone,
-  }));
+  const options = cityTimezones.cityMapping.map(
+    (city) =>
+      ({
+        text: `${city.city_ascii}, ${city.province}, ${city.country}`,
+        value: city.timezone,
+        city: city.city,
+        province: city.province,
+        country: city.country,
+        iso2: city.iso2,
+        iso3: city.iso3,
+        timezone: city.timezone,
+      }) as Place,
+  );
 </script>
 
 <Combobox
@@ -19,5 +29,4 @@
   required
   {options}
   bind:place
-  bind:timezone
 />
