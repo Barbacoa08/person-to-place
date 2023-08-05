@@ -20,11 +20,11 @@ dependencies:
 
 devDependencies:
   '@barbajoe/css-lib':
-    specifier: 0.1.7
-    version: 0.1.7
+    specifier: 0.1.8
+    version: 0.1.8
   '@barbajoe/svelte-lib':
     specifier: 0.2.6
-    version: 0.2.6(@barbajoe/css-lib@0.1.7)(svelte@4.1.2)
+    version: 0.2.6(@barbajoe/css-lib@0.1.8)(svelte@4.1.2)
   '@sveltejs/adapter-auto':
     specifier: 2.1.0
     version: 2.1.0(@sveltejs/kit@1.22.4)
@@ -104,17 +104,17 @@ packages:
       '@jridgewell/trace-mapping': 0.3.18
     dev: true
 
-  /@barbajoe/css-lib@0.1.7:
-    resolution: {integrity: sha512-x9Z9jrhl+DDT3N3/Q2z+uRUs+WcAqqDX+TEJQ764nDSf/mtzTuoZrkWkz/AKhW53CDRc2urYbaxvxxuxocRKRw==}
+  /@barbajoe/css-lib@0.1.8:
+    resolution: {integrity: sha512-kdkHyxDZDvceQJbOnkR5GE5eM63IAHYAq3zGYKxRpvgRTT891WMAK/CCZ2smcKP3wQccNQYZCMxF6V/swQV1MQ==}
     dev: true
 
-  /@barbajoe/svelte-lib@0.2.6(@barbajoe/css-lib@0.1.7)(svelte@4.1.2):
+  /@barbajoe/svelte-lib@0.2.6(@barbajoe/css-lib@0.1.8)(svelte@4.1.2):
     resolution: {integrity: sha512-xFY63iK4P1kzT2rPOA22HbE43zd8ZC/SfG3N/beuZlUYADajXlpg16G5j+VxW7NVMOWk0hlDLghaUyYr/uQXvg==}
     peerDependencies:
       '@barbajoe/css-lib': '*'
       svelte: ^4
     dependencies:
-      '@barbajoe/css-lib': 0.1.7
+      '@barbajoe/css-lib': 0.1.8
       svelte: 4.1.2
     dev: true
 
