@@ -84,6 +84,3 @@ form input:disabled {
   /* background-color: #4E4E4E; */
   /* NOTE: this new background color is 7:1, but ish "meh" */
 }
-textarea {
-  font-family: Arial;
-}
