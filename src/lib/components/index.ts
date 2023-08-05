@@ -1,6 +1,3 @@
-import Combobox from "./Combobox";
-export { Combobox };
-
 import InsertEntry from "./Header/InsertEntry.svelte";
 export { InsertEntry };
 
