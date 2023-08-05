@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Modal } from "@barbajoe/svelte-lib";
+  import { Link, Modal } from "@barbajoe/svelte-lib";
   import { invoke } from "@tauri-apps/api/tauri";
   import { toast } from "@zerodevx/svelte-toast";
   import ISO6391 from "iso-639-1";
@@ -118,11 +118,12 @@
               />
 
               <div class="helper-text">
-                Must be a valid <a
+                Must be a valid <Link
                   href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes"
+                  isExternal
                 >
                   ISO name
-                </a>
+                </Link>
               </div>
             </label>
 
