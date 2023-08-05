@@ -9,10 +9,11 @@
   export let editEntry: (updatedRow: TableData) => void;
 
   let showModal = false;
-  let updatedRow: TableData = { ...row };
+  $: updatedRow = row;
 </script>
 
 <button
+  id={`edit-entry-${row.id}`}
   class="action-button"
   aria-label="edit entry"
   on:click={() => (showModal = true)}
