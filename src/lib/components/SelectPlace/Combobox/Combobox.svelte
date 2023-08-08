@@ -2,21 +2,24 @@
   import fuzzysort from "fuzzysort";
 
   import { guid } from "$utils";
+  import { emptyPlace, type Place } from "$types/Place";
+
   import ClearInputIcon from "./ClearInputIcon.svelte";
 
   export let id: string = `barbajoe-combobox-${guid()}`;
   export let name: string = id;
   export let label: string;
-  export let options: { text: string; value: string }[] = [];
+  export let options: Place[] = [];
   export let placeholder: string | undefined = undefined;
-  export let place = "";
-  export let timezone = "";
+  export let place: Place = { ...emptyPlace };
   export let required = false;
 
   const listboxId = `${id}-listbox`;
   const listItemId = (index: number) => `listbox-item-${index}`;
 
   const filter = (text: string) => {
+    if (!text) return options;
+
     const sanitized = text.trim().toLowerCase();
 
     return fuzzysort
@@ -26,8 +29,15 @@
       })
       .map((o) => o.obj);
   };
-  $: items = filter(place);
-  $: isExpanded = items.length > 1;
+  $: items = filter(place.text);
+  $: isCollapsed =
+    !place.text ||
+    (place.text === items[0]?.text && place.value === items[0]?.value);
+  /*
+    NOTE: must hide listbox when fuzzy matching has overlaps such as:
+    "Hamburg, Hamburg" -> "Novo Hamburgo, Rio Grande do Sul"
+    "Chincha Alta, Ica" -> "Chimaltenango, Chimaltenango"
+  */
 
   let hoverIndex = -1;
   const resetHoverIndex = () => (hoverIndex = -1);
@@ -57,30 +67,26 @@
 -->
 <div class="combobox" aria-live="polite">
   <div class="group">
-    <input type="hidden" value={timezone} />
     <input
       {id}
       {name}
       {required}
       {placeholder}
-      bind:value={place}
+      bind:value={place.text}
       on:keydown={(event) => {
         if (["Tab", "Enter"].includes(event.key)) {
           hoverIndex = hoverIndex === -1 ? 0 : hoverIndex;
-          if (isValidTimezone(items[hoverIndex].value)) {
-            timezone = items[hoverIndex].value;
-            place = items[hoverIndex].text;
+          if (isValidTimezone(items[hoverIndex].timezone)) {
+            place = items[hoverIndex];
           } else {
-            timezone = "";
-            place = "";
+            place = { ...emptyPlace };
           }
           resetHoverIndex();
         } else if (event.key === "Escape") {
           resetHoverIndex();
           event.preventDefault();
           event.stopPropagation();
-          timezone = "";
-          place = "";
+          place = { ...emptyPlace };
         } else if (event.key === "ArrowDown") {
           event.preventDefault();
           event.stopPropagation();
@@ -99,16 +105,15 @@
       aria-owns={listboxId}
       aria-autocomplete="list"
       aria-controls={listboxId}
-      aria-expanded={isExpanded}
+      aria-expanded={!isCollapsed}
       aria-activedescendant={activedescendant}
     />
     <button
       type="button"
       aria-label="clear"
-      class:hidden={place === ""}
+      class:hidden={place.text === ""}
       on:click={() => {
-        place = "";
-        timezone = "";
+        place = { ...emptyPlace };
       }}
     >
       <ClearInputIcon />
@@ -119,24 +124,22 @@
     id={listboxId}
     role="listbox"
     aria-label={label}
-    class:hidden={!isExpanded}
+    class:hidden={isCollapsed}
   >
     {#each items as item, index}
       <li
         class="active"
         role="option"
-        aria-selected={place === item.value || hoverIndex === index}
+        aria-selected={place.text === item.text || hoverIndex === index}
         id={listItemId(index)}
         tabindex={hoverIndex === index ? 0 : -1}
         on:click={() => {
-          timezone = item.value;
-          place = item.text;
+          place = item;
         }}
         on:keydown={(event) => {
           // TODO: add a roving index
           if (event.key === "Enter") {
-            timezone = item.value;
-            place = item.text;
+            place = item;
           } else if (event.key === "ArrowDown") {
             event.preventDefault();
             event.stopPropagation();
@@ -148,8 +151,7 @@
           } else if (event.key === "Escape") {
             event.preventDefault();
             event.stopPropagation();
-            timezone = "";
-            place = "";
+            place = { ...emptyPlace };
           }
         }}
       >

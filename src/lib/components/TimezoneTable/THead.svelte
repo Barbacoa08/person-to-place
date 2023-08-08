@@ -68,6 +68,8 @@
 
     sortedtabledata = data;
   };
+
+  // TODO: save sort criteria and direction in store
 </script>
 
 <thead>

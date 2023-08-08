@@ -4,12 +4,13 @@
   import { SelectPlace } from "$lib/components";
   import { EditIcon } from "$lib/icons";
   import type { TableData } from "$types/Store";
+  import { emptyPlace } from "$types/Place";
 
   export let row: TableData;
   export let editEntry: (updatedRow: TableData) => void;
 
   let showModal = false;
-  $: updatedRow = row;
+  $: place = { ...emptyPlace, text: row.place, value: row.timezone };
 </script>
 
 <button
@@ -28,19 +29,16 @@
   <form>
     <div>
       <label for="edit-entry-name">Name</label>
-      <input id="edit-entry-name" type="text" bind:value={updatedRow.name} />
+      <input id="edit-entry-name" type="text" bind:value={row.name} />
     </div>
 
     <div>
-      <SelectPlace
-        bind:place={updatedRow.place}
-        bind:timezone={updatedRow.timezone}
-      />
+      <SelectPlace id={`edit-place-${row.id}`} bind:place />
     </div>
 
     <div>
       <label for="edit-entry-notes">Notes</label>
-      <textarea id="edit-entry-notes" bind:value={updatedRow.notes} />
+      <textarea id="edit-entry-notes" bind:value={row.notes} />
     </div>
   </form>
 
@@ -52,7 +50,12 @@
     <button
       class="modal-action-button"
       on:click={() => {
-        editEntry(updatedRow);
+        const update = {
+          ...row,
+          place: place.text,
+          timezone: place.value,
+        };
+        editEntry(update);
         showModal = false;
       }}
     >
