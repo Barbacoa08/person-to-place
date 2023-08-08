@@ -14,6 +14,7 @@
   onMount(() => getPreferences());
 
   let showModal = false;
+  const defaultLocale = navigator?.languages[0] ?? "en-US";
 
   let preferences: Preferences;
   const store = new Store(StoreConsts.path);
@@ -62,7 +63,7 @@
       toast.push("Failed to load preferences from store");
       console.error("Failed to load preferences from store", error);
       preferences = {
-        locale: await invoke("current_locale").catch(() => "en-US"),
+        locale: await invoke("current_locale").catch(() => defaultLocale),
         showNotes: true,
         showTimezone: true,
         showPlace: true,
@@ -106,6 +107,10 @@
                     <div>
                       Examples: en-US, en-GB, English, French, zh, Chinese,
                       中文, ab, Abkhaz, аҧсуа бызшәа
+                    </div>
+                    <div>
+                      your default locale is{" "}
+                      <strong>{defaultLocale}</strong>
                     </div>
                   </svelte:fragment>
                 </Tooltip>
