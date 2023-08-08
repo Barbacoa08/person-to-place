@@ -4,7 +4,7 @@
   import { SelectPlace } from "$lib/components";
   import { EditIcon } from "$lib/icons";
   import type { TableData } from "$types/Store";
-  import { emptyPlace, type Place } from "$types/Place";
+  import { emptyPlace } from "$types/Place";
 
   export let row: TableData;
   export let editEntry: (updatedRow: TableData) => void;

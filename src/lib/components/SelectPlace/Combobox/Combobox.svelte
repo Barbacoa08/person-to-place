@@ -5,7 +5,6 @@
   import { emptyPlace, type Place } from "$types/Place";
 
   import ClearInputIcon from "./ClearInputIcon.svelte";
-  import { text } from "@sveltejs/kit";
 
   export let id: string = `barbajoe-combobox-${guid()}`;
   export let name: string = id;
