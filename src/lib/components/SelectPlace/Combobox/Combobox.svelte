@@ -19,6 +19,8 @@
   const listItemId = (index: number) => `listbox-item-${index}`;
 
   const filter = (text: string) => {
+    if (!text) return options;
+
     const sanitized = text.trim().toLowerCase();
 
     return fuzzysort
@@ -30,9 +32,10 @@
   };
   $: items = filter(place.text);
   $: isCollapsed =
-    place.text === items[0]?.text && place.value === items[0]?.value;
+    !place.text ||
+    (place.text === items[0]?.text && place.value === items[0]?.value);
   /*
-    NOTE: must hide listbox due to loose fuzzy matching having overlaps such as:
+    NOTE: must hide listbox when fuzzy matching has overlaps such as:
     "Hamburg, Hamburg" -> "Novo Hamburgo, Rio Grande do Sul"
     "Chincha Alta, Ica" -> "Chimaltenango, Chimaltenango"
   */
