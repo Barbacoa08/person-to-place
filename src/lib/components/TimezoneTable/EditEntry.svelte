@@ -33,7 +33,7 @@
     </div>
 
     <div>
-      <SelectPlace bind:place />
+      <SelectPlace id={`edit-place-${row.id}`} bind:place />
     </div>
 
     <div>

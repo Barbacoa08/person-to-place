@@ -5,6 +5,7 @@
 
   import { Combobox } from "./Combobox";
 
+  export let id: string = "place-combobox-selection";
   export let place: Place = { ...emptyPlace };
 
   const options = cityTimezones.cityMapping.map(
@@ -21,11 +22,4 @@
   );
 </script>
 
-<Combobox
-  label="Place"
-  id="place-combobox-selection"
-  name="place-combobox-selection"
-  required
-  {options}
-  bind:place
-/>
+<Combobox label="Place" {id} name={id} required {options} bind:place />
