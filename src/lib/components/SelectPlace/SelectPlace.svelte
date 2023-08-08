@@ -10,10 +10,9 @@
   const options = cityTimezones.cityMapping.map(
     (city) =>
       ({
-        text: `${city.city_ascii}, ${city.province}, ${city.country}`,
+        text: `${city.city_ascii}, ${city.country}`,
         value: city.timezone,
         city: city.city,
-        province: city.province,
         country: city.country,
         iso2: city.iso2,
         iso3: city.iso3,
