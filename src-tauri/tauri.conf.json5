@@ -29,8 +29,8 @@
         "icons/icon.icns",
         "icons/icon.ico",
       ],
-      identifier: "com.tauri.dev",
-      longDescription: "",
+      identifier: "com.tauri.app",
+      longDescription: "An app that allows you to enter entries that descrive a person, where they live, and what timezone they are in. This is useful for scheduling meetings with people in different timezones.",
       macOS: {
         entitlements: null,
         exceptionDomain: "",
@@ -39,7 +39,7 @@
         signingIdentity: null,
       },
       resources: [],
-      shortDescription: "",
+      shortDescription: "track where people by place or timezone",
       targets: "all",
       windows: {
         certificateThumbprint: null,
