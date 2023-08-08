@@ -5,7 +5,7 @@
 
   import { Combobox } from "./Combobox";
 
-  export let place: Place = emptyPlace;
+  export let place: Place = { ...emptyPlace };
 
   const options = cityTimezones.cityMapping.map(
     (city) =>

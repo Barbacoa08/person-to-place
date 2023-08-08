@@ -12,7 +12,7 @@
   export let label: string;
   export let options: Place[] = [];
   export let placeholder: string | undefined = undefined;
-  export let place: Place = emptyPlace;
+  export let place: Place = { ...emptyPlace };
   export let required = false;
 
   const listboxId = `${id}-listbox`;
@@ -80,14 +80,14 @@
           if (isValidTimezone(items[hoverIndex].timezone)) {
             place = items[hoverIndex];
           } else {
-            place = emptyPlace;
+            place = { ...emptyPlace };
           }
           resetHoverIndex();
         } else if (event.key === "Escape") {
           resetHoverIndex();
           event.preventDefault();
           event.stopPropagation();
-          place = emptyPlace;
+          place = { ...emptyPlace };
         } else if (event.key === "ArrowDown") {
           event.preventDefault();
           event.stopPropagation();
@@ -114,7 +114,7 @@
       aria-label="clear"
       class:hidden={place.text === ""}
       on:click={() => {
-        place = emptyPlace;
+        place = { ...emptyPlace };
       }}
     >
       <ClearInputIcon />
@@ -152,7 +152,7 @@
           } else if (event.key === "Escape") {
             event.preventDefault();
             event.stopPropagation();
-            place = emptyPlace;
+            place = { ...emptyPlace };
           }
         }}
       >

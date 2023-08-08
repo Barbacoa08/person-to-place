@@ -13,7 +13,7 @@
   let showModal = false;
   let name = "";
   let notes = "";
-  let place: Place = emptyPlace;
+  let place: Place = { ...emptyPlace };
 
   const store = new Store(StoreConsts.path);
   const insert = async () => {
@@ -38,7 +38,7 @@
 
   const clearAndClose = () => {
     name = "";
-    place = emptyPlace;
+    place = { ...emptyPlace };
     notes = "";
     showModal = false;
   };
