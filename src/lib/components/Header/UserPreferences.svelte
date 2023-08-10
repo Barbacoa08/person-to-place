@@ -57,19 +57,26 @@
         preferences = result;
         PreferencesStore.set(preferences);
       } else {
-        throw new Error("Preferences not found in store");
+        throw new Error("Unable to load preferences");
       }
     } catch (error) {
-      toast.push("Failed to load preferences from store");
-      console.error("Failed to load preferences from store", error);
+      toast.push("No preferences found, using default preferences");
+      console.error("No preferences found, using default preferences", error);
+      const catchLocale = await invoke("current_locale").catch(
+        () => defaultLocale,
+      );
       preferences = {
-        locale: await invoke("current_locale").catch(() => defaultLocale),
+        locale: catchLocale,
+        localeDisplay: catchLocale,
         showNotes: true,
         showTimezone: true,
         showPlace: true,
         use24HourTime: true,
+        showDate: true,
       } as Preferences;
       PreferencesStore.set(preferences);
+      await store.set(StoreConsts.preferences, preferences);
+      await store.save();
     }
   };
 </script>
