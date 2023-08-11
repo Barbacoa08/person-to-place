@@ -9,8 +9,6 @@
   import THead from "./THead.svelte";
   import TBody from "./TBody.svelte";
 
-  // BUG: throws errors on first load
-
   onMount(async () => {
     tabledata = (await TauriStore.get<TableData[]>(StoreConsts.table)) || [];
   });
