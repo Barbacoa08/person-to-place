@@ -1,6 +1,6 @@
 {
-  "name": "person-to-timezone",
-  "version": "0.1.0",
+  "name": "person-to-place",
+  "version": "0.2.0",
   "type": "module",
   "keywords": [
     "svelte",
