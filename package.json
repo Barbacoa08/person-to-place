@@ -32,10 +32,10 @@
     "@barbajoe/svelte-lib": "0.2.6",
     "@sveltejs/adapter-auto": "2.1.0",
     "@sveltejs/adapter-static": "2.0.3",
-    "@sveltejs/kit": "1.22.5",
+    "@sveltejs/kit": "1.22.6",
     "@tauri-apps/cli": "1.4.0",
-    "@typescript-eslint/eslint-plugin": "6.3.0",
-    "@typescript-eslint/parser": "6.3.0",
+    "@typescript-eslint/eslint-plugin": "6.4.0",
+    "@typescript-eslint/parser": "6.4.0",
     "@zerodevx/svelte-toast": "0.9.5",
     "city-timezones": "1.2.1",
     "eslint": "8.47.0",
@@ -54,6 +54,7 @@
   },
   "dependencies": {
     "@tauri-apps/api": "1.4.0",
+    "driver.js": "1.2.1",
     "iso-639-1": "2.1.15",
     "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#v1",
     "tauri-plugin-window-state-api": "github:tauri-apps/tauri-plugin-window-state#v1"

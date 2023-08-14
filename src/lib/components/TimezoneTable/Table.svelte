@@ -9,8 +9,6 @@
   import THead from "./THead.svelte";
   import TBody from "./TBody.svelte";
 
-  // BUG: throws errors on first load
-
   onMount(async () => {
     tabledata = (await TauriStore.get<TableData[]>(StoreConsts.table)) || [];
   });
@@ -41,7 +39,7 @@
 
 <TableLabel now={currenttime} bind:search />
 
-<table class="thepp-table">
+<table class="thepp-table" id="driverjs-thepp-table">
   <THead {filteredtabledata} bind:sortedtabledata />
 
   <TBody {currenttime} {sortedtabledata} {tabledata} />

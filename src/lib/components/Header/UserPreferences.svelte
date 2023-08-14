@@ -82,6 +82,7 @@
 </script>
 
 <button
+  id="driverjs-preferences-button"
   class="modal-button"
   aria-label="User Preferences"
   on:click={() => {
