@@ -10,7 +10,12 @@ Are you sick to death of trying to remember who lives where and what time it is 
 - run web dev: `pnpm dev`
 - generate a new set of app icons: `pnpm tauri icon ./src-tauri/icons/app-icon.png`
   - works with (almost) any type of image format
-
+- generate the app
+  - [generate mac app](https://tauri.app/v1/guides/building/macos/)
+    - apple silicon: `pnpm tauri build --target aarch64-apple-darwin`
+    - intel: `pnpm tauri build --target x86_64-apple-darwin`
+    - universal: `tauri build --target universal-apple-darwin`
+  - [generate pc app](https://tauri.app/v1/guides/building/windows): `pnpm tauri build --target x86_64-pc-windows-msvc`
 ## other notes
 
 _After_ starting work on this project, I found [Clocker](https://github.com/n0shake/clocker) for Mac. Clocker solves a similar problem, and is free, but is Mac only and doesn't have a "notes" feature or as much customization. If what you need is a simple name-to-time on a Mac, Clocker may be a better product for you. If you need slightly more extensive notes, a larger display, and want more customization options, Person to Place may be a better product for you.
