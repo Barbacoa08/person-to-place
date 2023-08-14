@@ -5,7 +5,7 @@
 
   import { TimezoneTable } from "$lib/components";
   import type { Preferences } from "$types/Store";
-  import { PreferencesStore, StoreConsts } from "$utils";
+  import { StoreConsts } from "$utils";
 
   import "driver.js/dist/driver.css";
 
