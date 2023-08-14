@@ -11,6 +11,7 @@ Are you sick to death of trying to remember who lives where and what time it is 
 - generate a new set of app icons: `pnpm tauri icon ./src-tauri/icons/app-icon.png`
   - works with (almost) any type of image format
 - generate the app
+  - note that this is taken care of via [Tauri's GitHub Actions](https://github.com/tauri-apps/tauri-action).
   - [generate mac app](https://tauri.app/v1/guides/building/macos/)
     - apple silicon: `pnpm tauri build --target aarch64-apple-darwin`
     - intel: `pnpm tauri build --target x86_64-apple-darwin`
