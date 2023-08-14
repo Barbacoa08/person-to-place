@@ -12,8 +12,6 @@
   const store = new Store(StoreConsts.path);
   onMount(() => {
     store.get<Preferences>(StoreConsts.preferences).then((preferences) => {
-      console.log("preferences", preferences);
-
       if (!preferences) {
         const driverObj = driver({
           showProgress: true,
