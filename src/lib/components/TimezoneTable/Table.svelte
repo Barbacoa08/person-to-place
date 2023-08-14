@@ -39,7 +39,7 @@
 
 <TableLabel now={currenttime} bind:search />
 
-<table class="thepp-table">
+<table class="thepp-table" id="driverjs-thepp-table">
   <THead {filteredtabledata} bind:sortedtabledata />
 
   <TBody {currenttime} {sortedtabledata} {tabledata} />

@@ -45,6 +45,7 @@
 </script>
 
 <button
+  id="driverjs-insert-entry"
   class="modal-button"
   aria-label="insert enry"
   on:click={() => (showModal = true)}
