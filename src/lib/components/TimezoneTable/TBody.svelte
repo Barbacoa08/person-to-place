@@ -33,10 +33,12 @@
     await TauriStore.set(StoreConsts.table, tabledata);
     await TauriStore.save();
   };
+
+  $: expanded = new Array(sortedtabledata.length).fill(false);
 </script>
 
 <tbody>
-  {#each sortedtabledata as row}
+  {#each sortedtabledata as row, i}
     <tr>
       <td>{row.name}</td>
 
@@ -60,7 +62,15 @@
       {/if}
 
       {#if preferences.showNotes}
-        <td class="notes-expandable">{row.notes}</td>
+        <td
+          class="notes-expandable"
+          class:note-expanded={expanded[i]}
+          on:click={() => {
+            expanded[i] = !expanded[i];
+          }}
+        >
+          {row.notes}
+        </td>
       {/if}
 
       <td class="action-button-cell">
@@ -82,7 +92,7 @@
     transition: transform 0.15s cubic-bezier(0, 0.2, 0.5, 3) 0s;
 
     /* show tooltip with full content on hover of this td */
-    &:hover {
+    &:hover, &.note-expanded {
       overflow: visible;
       white-space: normal;
       transform: scale(1.02);
