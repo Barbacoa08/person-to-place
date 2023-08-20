@@ -5,6 +5,8 @@
 
   import SortableTh from "./SortableTH.svelte";
   import { tableSort } from "./utils";
+  import Tooltip from "../Header/Tooltip.svelte";
+  import InfoIcon from "$lib/icons/InfoIcon.svelte";
 
   onDestroy(() => {
     unsubscribe();
@@ -99,9 +101,27 @@
     {/if}
 
     {#if preferences.showNotes}
-      <th>Notes</th>
+      <th>
+        <div class="centered">
+          Notes
+
+          <Tooltip>
+            <InfoIcon />
+            <span slot="tooltiptext">
+              Double-click note to expand/collapse
+            </span>
+          </Tooltip>
+        </div>
+      </th>
     {/if}
 
     <th />
   </tr>
 </thead>
+
+<style>
+  .centered {
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
