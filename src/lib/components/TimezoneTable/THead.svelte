@@ -102,16 +102,26 @@
 
     {#if preferences.showNotes}
       <th>
-        <Tooltip>
+        <div class="centered">
           Notes
-          <InfoIcon height="1rem" width="1rem" />
-          <span slot="tooltiptext">
-            Double-click note to expand/collapse
-          </span>
-        </Tooltip>
+
+          <Tooltip>
+            <InfoIcon />
+            <span slot="tooltiptext">
+              Double-click note to expand/collapse
+            </span>
+          </Tooltip>
+        </div>
       </th>
     {/if}
 
     <th />
   </tr>
 </thead>
+
+<style>
+  .centered {
+    display: flex;
+    justify-content: space-between;
+  }
+</style>

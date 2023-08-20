@@ -2,8 +2,6 @@
   import { onDestroy } from "svelte";
   import { Store } from "tauri-plugin-store-api";
 
-  import ChevronDoubleDown from "$lib/icons/ChevronDoubleDown.svelte";
-  import ChevronDoubleUp from "$lib/icons/ChevronDoubleUp.svelte";
   import type { Preferences, TableData } from "$types/Store";
   import { StoreConsts } from "$utils";
   import { PreferencesStore } from "$utils/stores";
@@ -71,11 +69,6 @@
             expanded[i] = !expanded[i];
           }}
         >
-          {#if expanded[i]}
-            <ChevronDoubleDown />
-          {:else if !expanded[i] && row.notes.length > 10}
-            <ChevronDoubleUp />
-          {/if}
           {row.notes}
         </td>
       {/if}
