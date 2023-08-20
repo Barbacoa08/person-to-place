@@ -34,6 +34,11 @@
     await TauriStore.save();
   };
 
+  /**
+   * IMPROVEMENT: explore a more elegant solution. This will work for
+   * small data sets, which is fine for all current usecases,
+   * but it's a bit lazy all the same.
+   */
   $: expanded = new Array(sortedtabledata.length).fill(false);
 </script>
 
