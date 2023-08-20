@@ -2,6 +2,8 @@
   import { onDestroy } from "svelte";
   import { Store } from "tauri-plugin-store-api";
 
+  import ChevronDoubleDown from "$lib/icons/ChevronDoubleDown.svelte";
+  import ChevronDoubleUp from "$lib/icons/ChevronDoubleUp.svelte";
   import type { Preferences, TableData } from "$types/Store";
   import { StoreConsts } from "$utils";
   import { PreferencesStore } from "$utils/stores";
@@ -65,10 +67,15 @@
         <td
           class="notes-expandable"
           class:note-expanded={expanded[i]}
-          on:click={() => {
+          on:dblclick={() => {
             expanded[i] = !expanded[i];
           }}
         >
+          {#if expanded[i]}
+            <ChevronDoubleDown />
+          {:else if !expanded[i] && row.notes.length > 10}
+            <ChevronDoubleUp />
+          {/if}
           {row.notes}
         </td>
       {/if}
@@ -92,7 +99,8 @@
     transition: transform 0.15s cubic-bezier(0, 0.2, 0.5, 3) 0s;
 
     /* show tooltip with full content on hover of this td */
-    &:hover, &.note-expanded {
+    &:hover,
+    &.note-expanded {
       overflow: visible;
       white-space: normal;
       transform: scale(1.02);
