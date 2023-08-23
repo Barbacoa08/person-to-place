@@ -18,7 +18,7 @@ tauri-build = { version = "=1.4.0", features = ["config-json5"] }
 serde_json = "=1.0.105"
 serde = { version = "=1.0.185", features = ["derive"] }
 sys-locale = "=0.3.0"
-tauri = { version = "=1.4.0", features = [ "shell-open", "config-json5"] }
+tauri = { version = "=1.4.1", features = [ "shell-open", "config-json5"] }
 tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 tauri-plugin-window-state = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 
