@@ -1,6 +1,6 @@
 export interface Store {
   tabledata: TableData[];
-  preferences: Preferences; // TODO: implement preferences
+  preferences: Preferences;
 }
 
 export interface TableData {

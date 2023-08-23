@@ -58,7 +58,6 @@
 </script>
 
 <label for={id}>{label}</label>
-<!-- TODO: add timezone as `value` and place in label? -->
 
 <!--
   TODO: `aria-live="polite"` does work, but it's hacky and doesn't give as good of a UX as Deque's example.
@@ -137,7 +136,6 @@
           place = item;
         }}
         on:keydown={(event) => {
-          // TODO: add a roving index
           if (event.key === "Enter") {
             place = item;
           } else if (event.key === "ArrowDown") {
