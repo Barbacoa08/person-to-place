@@ -18,9 +18,3 @@ fn main() {
 fn current_locale() -> Option<String> {
     return get_locale();
 }
-
-// TODO: get user's preferred language: https://crates.io/crates/accept-language
-
-// TODO: get user's timezone: https://crates.io/crates/timezone-enum
-
-// TODO: get users name from system: https://crates.io/crates/whoami
