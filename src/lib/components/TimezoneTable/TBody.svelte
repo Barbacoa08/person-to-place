@@ -4,9 +4,9 @@
   import { Store } from "tauri-plugin-store-api";
 
   import { SelectPlace } from "$lib/components";
-  import { DeleteIcon } from "$lib/icons";
-  import { EditIcon } from "$lib/icons";
+  import { EditIcon, DeleteIcon } from "$lib/icons";
 
+  import type { Place } from "$types/Place";
   import { emptyPlace } from "$types/Place";
   import type { Preferences, TableData } from "$types/Store";
   import { StoreConsts } from "$utils";
@@ -39,17 +39,13 @@
 
   let showModal = false;
   let modification: "Edit" | "Delete" = "Edit";
+  let place: Place = { ...emptyPlace };
   let selectedRow: TableData = {
     id: "",
     name: "",
     place: "",
     timezone: "",
     notes: "",
-  };
-  $: place = {
-    ...emptyPlace,
-    text: selectedRow.place,
-    value: selectedRow.timezone,
   };
 
   /**
@@ -104,7 +100,9 @@
           on:click={() => {
             showModal = true;
             modification = "Edit";
-            selectedRow = row;
+            selectedRow = { ...row };
+            place.text = selectedRow.place;
+            place.value = selectedRow.timezone;
           }}
         >
           <EditIcon height="1rem" width="1rem" />
@@ -117,7 +115,7 @@
           on:click={() => {
             showModal = true;
             modification = "Delete";
-            selectedRow = row;
+            selectedRow = { ...row };
           }}
         >
           <DeleteIcon height="1rem" width="1rem" />
