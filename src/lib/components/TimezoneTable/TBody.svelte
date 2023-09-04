@@ -1,13 +1,16 @@
 <script lang="ts">
+  import { Modal } from "@barbajoe/svelte-lib";
   import { onDestroy } from "svelte";
   import { Store } from "tauri-plugin-store-api";
 
+  import { SelectPlace } from "$lib/components";
+  import { DeleteIcon } from "$lib/icons";
+  import { EditIcon } from "$lib/icons";
+
+  import { emptyPlace } from "$types/Place";
   import type { Preferences, TableData } from "$types/Store";
   import { StoreConsts } from "$utils";
   import { PreferencesStore } from "$utils/stores";
-
-  import DeleteEntry from "./DeleteEntry.svelte";
-  import EditEntry from "./EditEntry.svelte";
 
   onDestroy(() => {
     unsubscribe();
@@ -32,6 +35,21 @@
     tabledata = tabledata.filter((row) => row.id !== id);
     await TauriStore.set(StoreConsts.table, tabledata);
     await TauriStore.save();
+  };
+
+  let showModal = false;
+  let modification: "Edit" | "Delete" = "Edit";
+  let selectedRow: TableData = {
+    id: "",
+    name: "",
+    place: "",
+    timezone: "",
+    notes: "",
+  };
+  $: place = {
+    ...emptyPlace,
+    text: selectedRow.place,
+    value: selectedRow.timezone,
   };
 
   /**
@@ -79,13 +97,102 @@
       {/if}
 
       <td class="action-button-cell">
-        <EditEntry {row} {editEntry} />
+        <button
+          id={`edit-entry-${row.id}`}
+          class="action-button"
+          aria-label="edit entry"
+          on:click={() => {
+            showModal = true;
+            modification = "Edit";
+            selectedRow = row;
+          }}
+        >
+          <EditIcon height="1rem" width="1rem" />
+        </button>
 
-        <DeleteEntry {row} {deleteEntry} />
+        <button
+          id={`delete-entry-${row.id}`}
+          class="action-button"
+          aria-label="delete entry"
+          on:click={() => {
+            showModal = true;
+            modification = "Delete";
+            selectedRow = row;
+          }}
+        >
+          <DeleteIcon height="1rem" width="1rem" />
+        </button>
       </td>
     </tr>
   {/each}
 </tbody>
+
+<Modal bind:showModal>
+  <svelte:fragment slot="dialog-header-text">
+    {modification} Entry
+  </svelte:fragment>
+
+  <form>
+    <div>
+      <label for="modify-entry-name">Name</label>
+      <input
+        disabled={modification === "Delete"}
+        id="modify-entry-name"
+        type="text"
+        bind:value={selectedRow.name}
+      />
+    </div>
+
+    <div>
+      {#if modification === "Edit"}
+        <SelectPlace id={`modify-place-${selectedRow.id}`} bind:place />
+      {:else if modification === "Delete"}
+        <label for="delete-entry-place">Place</label>
+        <input
+          disabled
+          type="text"
+          id="delete-entry-place"
+          value={selectedRow.place}
+        />
+      {/if}
+    </div>
+
+    <div>
+      <label for="modify-entry-notes">Notes</label>
+      <textarea
+        disabled={modification === "Delete"}
+        id="modify-entry-notes"
+        bind:value={selectedRow.notes}
+      />
+    </div>
+  </form>
+
+  <svelte:fragment slot="dialog-footer">
+    <button class="modal-action-button" on:click={() => (showModal = false)}>
+      Cancel
+    </button>
+
+    <button
+      class="modal-action-button"
+      on:click={() => {
+        if (modification === "Delete") {
+          deleteEntry(selectedRow.id);
+        } else {
+          const update = {
+            ...selectedRow,
+            place: place.text,
+            timezone: place.value,
+          };
+          editEntry(update);
+        }
+
+        showModal = false;
+      }}
+    >
+      {modification === "Delete" ? "Delete" : "Update"}
+    </button>
+  </svelte:fragment>
+</Modal>
 
 <style>
   .notes-expandable {
