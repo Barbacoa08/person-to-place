@@ -72,7 +72,7 @@
       {required}
       {placeholder}
       bind:value={place.text}
-      on:keydown={(event) => {
+      on:keyup={(event) => {
         if (["Tab", "Enter"].includes(event.key)) {
           hoverIndex = hoverIndex === -1 ? 0 : hoverIndex;
           if (isValidTimezone(items[hoverIndex].timezone)) {
@@ -94,6 +94,9 @@
           event.preventDefault();
           event.stopPropagation();
           hoverIndex = Math.max(hoverIndex - 1, 0);
+        } else if (place.text === "") {
+          // IMPROVEMENT: should also reset if user selects all and pastes content
+          place = { ...emptyPlace };
         } else {
           resetHoverIndex();
         }
