@@ -20,9 +20,6 @@
         timezone: city.timezone,
       }) as Place,
   );
-  // BUG: (or a Feature depending on how you look at it)
-  // if a user selects a place, then deletes the text,
-  // that place will not show up in the search results anymore
 </script>
 
 <Combobox label="Place" {id} name={id} required {options} bind:place />

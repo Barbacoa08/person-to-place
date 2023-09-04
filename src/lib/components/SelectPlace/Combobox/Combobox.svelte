@@ -76,7 +76,7 @@
         if (["Tab", "Enter"].includes(event.key)) {
           hoverIndex = hoverIndex === -1 ? 0 : hoverIndex;
           if (isValidTimezone(items[hoverIndex].timezone)) {
-            place = items[hoverIndex];
+            place = { ...items[hoverIndex] };
           } else {
             place = { ...emptyPlace };
           }
@@ -137,11 +137,11 @@
         id={listItemId(index)}
         tabindex={hoverIndex === index ? 0 : -1}
         on:click={() => {
-          place = item;
+          place = { ...item };
         }}
         on:keydown={(event) => {
           if (event.key === "Enter") {
-            place = item;
+            place = { ...item };
           } else if (event.key === "ArrowDown") {
             event.preventDefault();
             event.stopPropagation();
