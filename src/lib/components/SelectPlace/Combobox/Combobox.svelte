@@ -72,11 +72,11 @@
       {required}
       {placeholder}
       bind:value={place.text}
-      on:keydown={(event) => {
+      on:keyup={(event) => {
         if (["Tab", "Enter"].includes(event.key)) {
           hoverIndex = hoverIndex === -1 ? 0 : hoverIndex;
           if (isValidTimezone(items[hoverIndex].timezone)) {
-            place = items[hoverIndex];
+            place = { ...items[hoverIndex] };
           } else {
             place = { ...emptyPlace };
           }
@@ -94,6 +94,9 @@
           event.preventDefault();
           event.stopPropagation();
           hoverIndex = Math.max(hoverIndex - 1, 0);
+        } else if (place.text === "") {
+          // IMPROVEMENT: should also reset if user selects all and pastes content
+          place = { ...emptyPlace };
         } else {
           resetHoverIndex();
         }
@@ -113,6 +116,7 @@
       class:hidden={place.text === ""}
       on:click={() => {
         place = { ...emptyPlace };
+        document?.getElementById(id)?.focus();
       }}
     >
       <ClearInputIcon />
@@ -133,11 +137,11 @@
         id={listItemId(index)}
         tabindex={hoverIndex === index ? 0 : -1}
         on:click={() => {
-          place = item;
+          place = { ...item };
         }}
         on:keydown={(event) => {
           if (event.key === "Enter") {
-            place = item;
+            place = { ...item };
           } else if (event.key === "ArrowDown") {
             event.preventDefault();
             event.stopPropagation();
