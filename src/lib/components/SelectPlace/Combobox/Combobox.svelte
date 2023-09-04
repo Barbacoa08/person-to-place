@@ -113,6 +113,7 @@
       class:hidden={place.text === ""}
       on:click={() => {
         place = { ...emptyPlace };
+        document?.getElementById(id)?.focus();
       }}
     >
       <ClearInputIcon />
