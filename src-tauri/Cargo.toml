@@ -12,13 +12,13 @@ rust-version = "1.60"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [build-dependencies]
-tauri-build = { version = "=1.4.0", features = ["config-json5"] }
+tauri-build = { version = "=1.5.0", features = ["config-json5"] }
 
 [dependencies]
-serde_json = "=1.0.105"
-serde = { version = "=1.0.188", features = ["derive"] }
+serde_json = "=1.0.107"
+serde = { version = "=1.0.189", features = ["derive"] }
 sys-locale = "=0.3.1"
-tauri = { version = "=1.4.1", features = [ "shell-open", "config-json5"] }
+tauri = { version = "=1.5.2", features = [ "shell-open", "config-json5"] }
 tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 tauri-plugin-window-state = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 
