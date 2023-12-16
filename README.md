@@ -4,16 +4,16 @@ Are you sick to death of trying to remember who lives where and what time it is 
 
 ## features and functionality examples
 
-The app is fully local. When you first load it up you will be see the following message, "No preferences found, using default preferences" which just means that everything is turned on.
+The app is entirely local. On initial load, you will see the following message: "No preferences found, using default preferences," which means everything is turned on.
 ![initial loading screen of application](./readme-images/initial-loading-screen.jpg)
 
-Tha app has full CRUD functionality.
+The app has full CRUD functionality.
 ![GIF of an entry being shown, removed, and then added again](./readme-images/CRUD-functionality.gif)
 
-The app allows searching for a person, place, or timezone independant of if those options are shown.
+The app allows searching for a person, place, or timezone independent of if those options are shown.
 ![GIF of an entry being searched for by timezone and then place](./readme-images/search-place-or-timezone.gif)
 
-Finally, the app has a wide range of preferences to choose from, such as what columns to show, date and time format, and more.
+Finally, the app has a range of preferences, such as what columns to show, date and time format, and more.
 ![GIF of different options being enable and disabled by the preferences modal](./readme-images/app-preferences.gif)
 
 ## dev notes
